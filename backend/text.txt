@@ -12,111 +12,12 @@ D_State:
 D_Contact:
 D_KastDonationDate:
 
-
-{
-    "": {
-        "url": "https://resumetrick.com/"
-    },
-    "DN": {
-        "url": "https://github.com/deepakdnayak"
-    },
-    "SM": {
-        "url": "https://github.com/starmanfrommars"
-    },
-    "DSA": {
-        "url": "https://neetcode.io/roadmap"
-    },
-    "SQL": {
-        "url": "https://livesql.oracle.com/apex/f?p=590:1:108639539262530:::RP::#"
-    },
-    "Free AI Kids Video Script Generator - GravityWrite": {
-        "url": "https://app.gravitywrite.com/tools/kids-video-script-generator"
-    },
-    "Docker": {
-        "url": "https://hub.docker.com/"
-    },
-    "Router v6": {
-        "url": "https://reactrouter.com/en/main/upgrading/v5"
-    },
-    "How to deploy a React application to Netlify": {
-        "url": "https://www.freecodecamp.org/news/how-to-deploy-a-react-application-to-netlify-363b8a98a985/"
-    },
-    "QuickRef.ME - Quick Reference Cheat Sheet": {
-        "url": "https://quickref.me/"
-    },
-    "Snapchat": {
-        "url": "https://web.snapchat.com/7628b8d0-8ea4-5b78-bd83-2773fcde818f"
-    },
-    "Binary Tree Inorder Traversal - LeetCode - New Solution": {
-        "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/post-solution/?submissionId=1290128044"
-    },
-    "GIF": {
-        "url": "https://www.adobe.com/express/feature/video/convert/video-to-gif"
-    },
-    "Watch Rascal Does Not Dream of Bunny Girl Senpai English Sub/Dub online Free on HiAnime.to": {
-        "url": "https://hianime.to/watch/rascal-does-not-dream-of-bunny-girl-senpai-149?ep=4008"
-    },
-    "PrepInsta : Prepare for Placements Instantly": {
-        "url": "https://prepinsta.com/"
-    },
-    "Developer Roadmaps - roadmap.sh": {
-        "url": "https://roadmap.sh/"
-    },
-    "Alya Sometimes Hides Her Feelings in Russian": {
-        "url": "https://hianime.to/watch/alya-sometimes-hides-her-feelings-in-russian-19254?ep=125794"
-    },
-    "HarvardX: CS50's Introduction to Programming with Python | edX": {
-        "url": "https://www.edx.org/learn/python/harvard-university-cs50-s-introduction-to-programming-with-python?webview=false&campaign=CS50%27s+Introduction+to+Programming+with+Python&source=edx&product_category=course&placement_url=https%3A%2F%2Fwww.edx.org%2Fschool%2Fharvardx"
-    },
-    "HarvardX: CS50's Introduction to Computer Science | edX": {
-        "url": "https://www.edx.org/learn/computer-science/harvard-university-cs50-s-introduction-to-computer-science"
-    },
-    "Courses | Harvard University": {
-        "url": "https://pll.harvard.edu/catalog?keywords=python"
-    },
-    "TechCrunch | Startup and Technology News": {
-        "url": "https://techcrunch.com/"
-    },
-    "Watch Chillin' in Another World with Level 2 Super Cheat Powers English Sub/Dub online Free on HiAnime.to": {
-        "url": "https://hianime.to/chillin-in-another-world-with-level-2-super-cheat-powers-19129"
-    },
-    "Kukke Shree Subrahmanya Temple, Subrahamanya Post - 574238, Dakshina Kannada District [TM000021].,subraya devaru , annadhatha subbappa, kukke shree subrahmanya,subraya devaru , annadhatha subbappa, kukke shree subrahmanya": {
-        "url": "https://itms.kar.nic.in/eservices/dharshanbooking.php?tid=21&scode=6&sscode=8&target_type=1"
-    },
-    "GDevelop 5 - Joystick Tutorial *": {
-        "url": "https://editor.gdevelop.io/"
-    },
-    "Make An Arcade Space Shooter With GameMaker | GameMaker": {
-        "url": "https://gamemaker.io/en/tutorials/make-arcade-space-shooter"
-    },
-    "highlight.js/SUPPORTED_LANGUAGES.md at main · highlightjs/highlight.js": {
-        "url": "https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md"
-    },
-    "highlight.js/src/styles at main · highlightjs/highlight.js": {
-        "url": "https://github.com/highlightjs/highlight.js/tree/main/src/styles"
-    },
-    "How to download and install MS ACCESS 2023 | Free | in Windows 11/10 | TechBrgv | Without key. - YouTube": {
-        "url": "https://www.youtube.com/watch?v=Rhff0aLxs6c"
-    },
-    "Gemini": {
-        "url": "https://gemini.google.com/app/68d68e5de9b1eda7"
-    },
-    "How to Display a PDF in React | PSPDFKit": {
-        "url": "https://pspdfkit.com/blog/2022/how-to-display-a-pdf-in-react/"
-    },
-    "Home - OneDrive": {
-        "url": "https://onedrive.live.com/?id=root&cid=B427BEE011C9EC83&qt=mru"
-    },
-    "Make 2D Games With GameMaker | Free Video Game Maker": {
-        "url": "https://gamemaker.io/en"
-    },
-    "Download | GDevelop": {
-        "url": "https://gdevelop.io/download"
-    },
-    "VECTARIA.IO - Play Online for Free! | Poki": {
-        "url": "https://poki.com/en/g/vectaria-io"
-    },
-    "Watch Makeine: Too Many Losing Heroines! English Sub/Dub online Free on HiAnime.to": {
-        "url": "https://hianime.to/makeine-too-many-losing-heroines-19235?ref=search"
-    }
-}
+B_Email:
+B_Password:
+B_LiscenceNo:
+B_Name:
+B_Address:
+B_City:
+B_State:
+B_IsGov:
+B_Contact:
