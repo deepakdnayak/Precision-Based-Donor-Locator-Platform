@@ -5,14 +5,14 @@ const fetchBloodBank = (req,res,next)=> {
 
     const authToken = req.header('authToken');
     if(!authToken){
-        return res.status(400).json({error: "PLease authenticate using valid token 11 "});
+        return res.status(401).json({error: "PLease authenticate using valid token 11 "});
     }
 
     try {
         const data = jwt.verify(authToken,JWT_SECRET);
-        // console.log('Token data:', data);
-        req.bloodBank = data.bloodBank;  
-        // console.log('req.user:', req.user);
+        console.log('Token data:', data);
+        req.user = data.bloodBank;  
+        console.log('req.user:', req.user);
         next();
     } 
     catch (error) {

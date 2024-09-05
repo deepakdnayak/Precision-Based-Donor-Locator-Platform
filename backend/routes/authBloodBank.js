@@ -99,7 +99,7 @@ router.post('/login',[
 router.post('/getBloodBank',fetchBloodBank, async (req,res)=> {
     try {
         
-        let BloodBankId = req.bloodBank.id;
+        let BloodBankId = req.user.id;
         const user = await BloodBank.findById(BloodBankId).select("-B_Password")
         res.send(user)
 

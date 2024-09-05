@@ -10,9 +10,9 @@ const fetchDonor = (req,res,next)=> {
 
     try {
         const data = jwt.verify(authToken,JWT_SECRET);
-        // console.log('Token data:', data);
-        req.donor = data.donor;  
-        // console.log('req.user:', req.user);
+        console.log('Token data:', data);
+        req.user = data.donor;  
+        console.log('req.user:', req.user);
         next();
     } 
     catch (error) {

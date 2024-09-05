@@ -21,3 +21,25 @@ B_City:
 B_State:
 B_IsGov:
 B_Contact:
+
+BloodBankID:
+DonorID:
+Blood_QTY:
+Blood_Group:
+Blood_Weight:
+Donation_Date:
+Blood_Expiry_Date:
+
+BloodBankID, DonorID, Blood_QTY, Blood_Group, Blood_Weight, Donation_Date, Blood_Expiry_Date
+
+BloodBankID:
+Aplus:
+Amin:
+Bplus:
+Bmin:
+Oplus:
+Omin:
+ABplus:
+ABmin:
+
+BloodBankID, Aplus, Amin, Bplus, Bmin, Oplus, Omin, ABplus, ABmin

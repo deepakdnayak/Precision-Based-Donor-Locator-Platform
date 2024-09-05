@@ -104,7 +104,7 @@ router.post('/login',[
 router.post('/getDonor',fetchDonor, async (req,res)=> {
     try {
         
-        let DonorId = req.donor.id;
+        let DonorId = req.user.id;
         const user = await Donor.findById(DonorId).select("-D_Password")
         res.send(user)
 

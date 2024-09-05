@@ -11,7 +11,7 @@ const DonationSchema = new Schema({
         ref: 'Donor'
     },
     Blood_QTY: {
-        type: Blood,
+        type: Number,
         required: true
     },
     Blood_Group: {
