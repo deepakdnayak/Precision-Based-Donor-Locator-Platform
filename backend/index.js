@@ -13,6 +13,7 @@ app.use('/api/authDonor', require('./routes/authDonor'))
 app.use('/api/authBloodBank', require('./routes/authBloodBank'))
 app.use('/api/donation', require('./routes/donation'))
 app.use('/api/bloodInventory', require('./routes/bloodInventory'))
+app.use('/api/searchBlood', require('./routes/searchBlood'))
 
 app.listen(port, ()=> {
     console.log(`BloodBank backend listening at http://localhost:${port}`);
