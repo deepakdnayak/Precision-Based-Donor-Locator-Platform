@@ -15,7 +15,7 @@ const About = () => {
                                 
 
                                 <div class="my-4">
-                                    <p class="text-center fw-bold mx-3 mb-0">LOGIN</p>
+                                    <p class="text-center mx-3 mb-0 fs-1">LOGIN</p>
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
