@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { query,validationResult, body } = require('express-validator')  // used to check if the entries are valid and if they follow the required constraints
+const { validationResult, body } = require('express-validator')  // used to check if the entries are valid and if they follow the required constraints
 const bcrypt = require('bcrypt') // used to hash passwords
 const jwt = require('jsonwebtoken') // used to generate BloodBank auth web token
 const JWT_SECRET = "BloodBankisaMERNapp";
@@ -33,13 +33,13 @@ router.post('/createBloodBank',[
         bloodBank = await BloodBank.create({
             B_Email:   req.body.B_Email, 
             B_Password:   secPass,
-            B_LiscenceNo:   req.body.B_LiscenceNo,
-            B_Name:   req.body.B_Name,
-            B_Address:   req.body.B_Address,
-            B_City:   req.body.B_City,
-            B_State:   req.body.B_State,
-            B_IsGov:   req.body.B_IsGov,
-            B_Contact:   req.body.B_Contact
+            B_LiscenceNo:   0,
+            B_Name:   "default",
+            B_Address:   "default",
+            B_City:  "default",
+            B_State:   "default",
+            B_IsGov:   false,
+            B_Contact:   0
         });
 
         const data = {
@@ -109,5 +109,36 @@ router.post('/getBloodBank',fetchBloodBank, async (req,res)=> {
         res.status(500).send("Internal server error");
     }
 })
+
+// Route 4 : Update a BloodBank detail using : PUT "/api/authBloodBank/updateBloodBank" Login Required
+router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
+
+    const {B_LiscenceNo,B_Name,B_Address,B_City,B_State,B_IsGov,B_Contact} = req.body;
+
+    try {
+        
+        // create new blood bank object
+        const newBloodBank = {};
+        if (B_LiscenceNo) newBloodBank.B_LiscenceNo = B_LiscenceNo;
+        if (B_Name) newBloodBank.B_Name = B_Name;
+        if (B_Address) newBloodBank.B_Address = B_Address;
+        if (B_City) newBloodBank.B_City = B_City;
+        if (B_State) newBloodBank.B_State = B_State;
+        if (B_IsGov) newBloodBank.B_IsGov = B_IsGov;
+        if (B_Contact) newBloodBank.B_Contact = B_Contact;
+
+        // find the blood bank to be updated and update it
+        let bloodBank = await BloodBank.findById(req.params.id);
+        if (!bloodBank) res.status(404).send("Blood Bank not found");
+
+        bloodBank = await BloodBank.findByIdAndUpdate(req.params.id, {$set: newBloodBank}, {new: true}).select("-B_Password")
+        res.json({ bloodBank })
+    } 
+    catch (error) {
+        console.log(error.message);
+        res.json(505).send("Internal Server Error");
+    }
+})
+
 
 module.exports = router

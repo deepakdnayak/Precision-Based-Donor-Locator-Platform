@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { query,validationResult, body } = require('express-validator')  // used to check if the entries are valid and if they follow the required constraints
+const { validationResult, body } = require('express-validator')  // used to check if the entries are valid and if they follow the required constraints
 const bcrypt = require('bcrypt') // used to hash passwords
 const jwt = require('jsonwebtoken') // used to generate BloodBank auth web token
 const JWT_SECRET = "BloodBankisaMERNapp";
@@ -34,17 +34,17 @@ router.post('/createDonor',[
         donor = await Donor.create({
             D_Email:   req.body.D_Email,
             D_Password:   secPass,
-            D_Fname:   req.body.D_Fname,
-            D_Lname:   req.body.D_Lname,
-            D_Age:   req.body.D_Age,
-            D_Gender:   req.body.D_Gender,
-            D_AdharNo:   req.body.D_AdharNo,
-            D_BloodGroup:   req.body.D_BloodGroup,
-            D_Address:   req.body.D_Address,
-            D_City:   req.body.D_City,
-            D_State:   req.body.D_State,
-            D_Contact:   req.body.D_Contact,
-            D_LastDonationDate:   new Date(req.body.D_LastDonationDate)
+            D_Fname:   "default",
+            D_Lname:   "default",
+            D_Age:   0,
+            D_Gender:   "default",
+            D_AdharNo:   0,
+            D_BloodGroup:   "default",
+            D_Address:   "default",
+            D_City:   "default",
+            D_State:   "default",
+            D_Contact:   0,
+            D_LastDonationDate:   new Date("2000-01-01T00:00:00Z")
         });
 
         const data = {
@@ -112,6 +112,41 @@ router.post('/getDonor',fetchDonor, async (req,res)=> {
     catch (error) {
         console.error(error.message);
         res.status(500).send("Internal server error");
+    }
+})
+
+
+// Route 4 : Update a Donor profile using : PUT "/api/authDonor/updateDonor" Login Required
+router.put('/updateDonor/:id',fetchDonor, async(req,res)=> {
+
+    const {D_Fname,D_Lname,D_Age,D_Gender,D_AdharNo,D_BloodGroup,D_Address,D_City,D_State,D_Contact,D_LastDonationDate} = req.body;
+
+    try {
+        
+        // Create a new donor object
+        const newDonor = {};
+        if (D_Fname) { newDonor.D_Fname = D_Fname }
+        if (D_Lname) { newDonor.D_Lname = D_Lname }
+        if (D_Age) { newDonor.D_Age = D_Age }
+        if (D_Gender) { newDonor.D_Gender = D_Gender }
+        if (D_AdharNo) { newDonor.D_AdharNo = D_AdharNo }
+        if (D_BloodGroup) { newDonor.D_BloodGroup = D_BloodGroup }
+        if (D_Address) { newDonor.D_Address = D_Address }
+        if (D_City) { newDonor.D_City = D_City }
+        if (D_State) { newDonor.D_State = D_State }
+        if (D_Contact) { newDonor.D_Contact = D_Contact }
+        if (D_LastDonationDate) { newDonor.D_LastDonationDate = D_LastDonationDate }
+
+        // find the donor to be updated and update it
+        let donor = await Donor.findById(req.params.id);
+        if (!donor) res.status(404).send("Donor Not Found");
+
+        donor = await Donor.findByIdAndUpdate(req.params.id, {$set: newDonor}, {new: true}).select("-D_Password")
+        res.json({ donor })
+    } 
+    catch (error) {
+        console.log(error.message);
+        res.json(505).send("Internal Server Error");
     }
 })
 
