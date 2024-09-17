@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const DonorLogin = () => {
     return (
@@ -22,8 +23,8 @@ const DonorLogin = () => {
             <div className="text-center text-lg-start mt-4 pt-2">
                 <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-lg"
                     style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }} >Login</button>
-                <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                    className="link-danger">Register</a></p>
+                <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to="/register"
+                    className="link-danger">Register</Link></p>
             </div>
         </div>
     )

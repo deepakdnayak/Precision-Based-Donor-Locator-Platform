@@ -17,14 +17,14 @@ router.post('/createBloodBank',[
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({error: errors.array});
+        return res.status(400).json({ success: false, error: errors.array });
     }
 
     try {
         
         let bloodBank = await BloodBank.findOne({B_Email: req.body.B_Email})
         if(bloodBank){
-            return res.status(400).json({error: "User Exists"})
+            return res.status(400).json({ success: false, error: "User Exists"})
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -48,7 +48,7 @@ router.post('/createBloodBank',[
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-        return res.json({authToken})
+        return res.json({ success: true, authToken })
     } 
     catch (error) {
         console.log(error.message);

@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BloodBankContext from './BloodBankContext'
 
 const BloodBankState = props => {
     const host = "http://localhost:5000";
     const [bloodBankAuthToken, setBloodBankAuthToken] = useState(null);
 
+    useEffect(() => {
+        console.log("At in State = " + bloodBankAuthToken);
+    }, [bloodBankAuthToken]);
+
     const registerBloodBank = async (credential)=> {
         try {
-            const responce = await fetch(`${host}api/authBloodBank/createBloodBank`,{
+            const responce = await fetch(`${host}/api/authBloodBank/createBloodBank`,{
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -16,13 +20,16 @@ const BloodBankState = props => {
             });    
 
             const json = await responce.json();
+            console.log("*****");
+            console.log(json.authToken);
+            
             if(json.success) {
                 setBloodBankAuthToken(json.authToken);
-                return {success: true}
-
+                console.log("### AT = "+bloodBankAuthToken);
+                return {success: true};
             }
             else {
-                return { succes: false}
+                return { success: false, message: json.message };
             }
         } 
         catch (error) {

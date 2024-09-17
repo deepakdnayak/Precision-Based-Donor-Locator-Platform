@@ -18,14 +18,14 @@ router.post('/createDonor',[
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({error: errors.array});
+        return res.status(400).json({ success: false, error: errors.array });
     }
 
     try {
         
         let donor = await Donor.findOne({D_Email: req.body.D_Email})
         if(donor){
-            return res.status(400).json({error: "User Exists"})
+            return res.status(400).json({ success: false, error: "User Exists"})
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -53,7 +53,7 @@ router.post('/createDonor',[
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-        return res.json({authToken})
+        return res.json({ success: true, authToken})
     } 
     catch (error) {
         console.log(error.message);
