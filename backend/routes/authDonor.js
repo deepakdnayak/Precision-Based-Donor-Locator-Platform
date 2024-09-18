@@ -69,7 +69,7 @@ router.post('/login',[
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({error: errors.array});
+        return res.status(400).json({ success: false, error: errors.array});
     }
 
     const {D_Email,D_Password} = req.body;
@@ -77,12 +77,12 @@ router.post('/login',[
         
         let donor = await Donor.findOne({D_Email})
         if(!donor){
-            return res.status(400).json({error: "PLease try to login with valid credentials"})
+            return res.status(400).json({ success: false, error: "PLease try to login with valid credentials"})
         }
 
         const passwordCompare = await bcrypt.compare(D_Password,donor.D_Password);
         if(!passwordCompare){
-            return res.status(400).json({error: "PLease try to login with valid credentials"})
+            return res.status(400).json({ success: false, error: "PLease try to login with valid credentials"})
         }
 
         const data = {
@@ -92,7 +92,7 @@ router.post('/login',[
         }
 
         const authToken = jwt.sign(data, JWT_SECRET);
-        return res.json({authToken})
+        return res.json({ success: true, authToken})
     } 
     catch (error) {
         console.log(error.message);

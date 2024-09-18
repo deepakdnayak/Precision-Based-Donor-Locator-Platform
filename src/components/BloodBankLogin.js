@@ -26,7 +26,7 @@ const BloodBankLogin = () => {
         console.log("authToken = " + bloodBankAuthToken);
 
         if (!result.success) {
-            setToastMessage(result.message || "Registration failed.");
+            setToastMessage(result.message || "Login failed.");
             setShowToast(true);
         }
         else {

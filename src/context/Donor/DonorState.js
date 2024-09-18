@@ -38,8 +38,35 @@ const DonorState = props => {
         }
     }
 
+    const loginDonor = async (credential)=> {
+        try {
+            const responce = await fetch(`${host}/api/authDonor/login`,{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credential),
+            });
+
+            const json = await responce.json();
+
+            if(json.success) {
+                setDonorAuthToken(json.authToken);
+                console.log("### AT = "+donorAuthToken);
+                return { success: true };
+            }
+            else {
+                return { success: false, message: json.message };
+            }
+        } 
+        catch (error) {
+            console.error("Error during login:", error);
+            return { success: false };
+        }
+    }
+
     return(
-        <DonorContext.Provider value={{ donorAuthToken, registerDonor }}>
+        <DonorContext.Provider value={{ donorAuthToken, registerDonor, loginDonor }}>
             {props.children}
         </DonorContext.Provider>
     )
