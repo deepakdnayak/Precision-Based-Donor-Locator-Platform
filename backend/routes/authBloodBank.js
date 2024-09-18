@@ -64,7 +64,7 @@ router.post('/login',[
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({error: errors.array});
+        return res.status(400).json({ success: false, error: errors.array});
     }
 
     const {B_Email,B_Password} = req.body;
@@ -72,12 +72,12 @@ router.post('/login',[
         
         let bloodBank = await BloodBank.findOne({B_Email})
         if(!bloodBank){
-            return res.status(400).json({error: "PLease try to login with valid credentials"})
+            return res.status(400).json({ success: false, error: "PLease try to login with valid credentials"})
         }
 
         const passwordCompare = await bcrypt.compare(B_Password,bloodBank.B_Password);
         if(!passwordCompare){
-            return res.status(400).json({error: "PLease try to login with valid credentials"})
+            return res.status(400).json({success: false, error: "PLease try to login with valid credentials"})
         }
 
         const data = {
@@ -87,7 +87,7 @@ router.post('/login',[
         }
 
         const authToken = jwt.sign(data, JWT_SECRET);
-        return res.json({authToken})
+        return res.json({ success: true, authToken})
     } 
     catch (error) {
         console.log(error.message);

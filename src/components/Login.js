@@ -3,9 +3,9 @@ import DonorLogin from './DonorLogin'
 import BloodBankLogin from './BloodBankLogin'
 
 const Login = () => {
-    
+
     const [mode, setMode] = useState("donor")
-    
+
     return (
         <div>
             <section className="vh-100">
@@ -16,17 +16,15 @@ const Login = () => {
                                 className="img-fluid" alt="Sample" />
                         </div>
                         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <form>
 
-                                {mode==="donor"?<DonorLogin/>:<BloodBankLogin/>}
+                            {mode === "donor" ? <DonorLogin /> : <BloodBankLogin />}
 
-                                <div className="container mt-3 ">
-                                    <div className="row text-center">
-                                        <div className={`col btn rounded-0 py-2 border-end border-${mode==="donor"?"bottom":"top"}`} onClick={()=> setMode("donor")}>Donor</div>
-                                        <div className={`col btn rounded-0 py-2 border-start border-${mode==="bloodBank"?"bottom":"top"}`} onClick={()=> setMode("bloodBank")}>Blood Bank</div>
-                                    </div>
+                            <div className="container mt-3 ">
+                                <div className="row text-center">
+                                    <div className={`col btn rounded-0 py-2 border-end border-${mode === "donor" ? "bottom" : "top"}`} onClick={() => setMode("donor")}>Donor</div>
+                                    <div className={`col btn rounded-0 py-2 border-start border-${mode === "bloodBank" ? "bottom" : "top"}`} onClick={() => setMode("bloodBank")}>Blood Bank</div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

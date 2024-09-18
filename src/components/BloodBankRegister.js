@@ -66,20 +66,44 @@ const BloodBankRegister = () => {
 
                 <div data-mdb-input-init className="form-outline mb-4">
                     <label className="form-label" htmlFor="B_Email">Email address</label>
-                    <input type="email" id="B_Email" className="form-control form-control-lg"
-                        placeholder="Enter a valid email address" name="B_Email" value={credentials.B_Email} onChange={onChange} required />
+                    <input 
+                        type="email" 
+                        id="B_Email" 
+                        className="form-control form-control-lg"
+                        placeholder="Enter a valid email address" 
+                        name="B_Email" 
+                        value={credentials.B_Email} 
+                        onChange={onChange} 
+                        required 
+                    />
                 </div>
 
                 <div data-mdb-input-init className="form-outline mb-3">
                     <label className="form-label" htmlFor="B_Password">Enter Password</label>
-                    <input type="password" id="B_Password" className="form-control form-control-lg"
-                        placeholder="Enter password" name="B_Password" value={credentials.B_Password} onChange={onChange} required />
+                    <input 
+                        type="password" 
+                        id="B_Password" 
+                        className="form-control form-control-lg"
+                        placeholder="Enter password" 
+                        name="B_Password" 
+                        value={credentials.B_Password} 
+                        onChange={onChange} 
+                        required 
+                    />
                 </div>
 
                 <div data-mdb-input-init className="form-outline mb-3">
                     <label className="form-label" htmlFor="B_Password_C">Confirm Password</label>
-                    <input type="password" id="B_Password_C" name="B_Password_C" value={credentials.B_Password_C} onChange={onChange} className="form-control form-control-lg"
-                        placeholder="Confirm password" required />
+                    <input 
+                        type="password" 
+                        id="B_Password_C" 
+                        name="B_Password_C" 
+                        value={credentials.B_Password_C} 
+                        onChange={onChange} 
+                        className="form-control form-control-lg"
+                        placeholder="Confirm password" 
+                        required 
+                    />
                 </div>
 
                 <div className="text-center text-lg-start mt-4 pt-2">
