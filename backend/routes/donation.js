@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 const Donation = require('../models/Donation')
 const BloodInventory = require('../models/BloodInventory')
+const Donor = require('../models/Donor')
 
 let fetchBloodBank = require('../middleware/fetchBloodBank')
 
@@ -86,5 +87,19 @@ router.post('/addDonation', fetchBloodBank, async (req,res)=> {
         res.json(500).send("Internal server error");
     }
 })
+
+// Route 3 : Get all Donor Names using GET : "/api/donation/getDonationDetails" : LOGIN required
+router.get('/getDonorNames', async (req,res)=> {
+    try {
+        const donors = await Donor.find({}).select(["D_Fname","D_Lname"])
+        return res.json(donors)    
+    } 
+    catch (error) {
+        console.error(error.message);
+        res.json(500).send("Internal server error");
+    }
+})
+
+
 
 module.exports = router
