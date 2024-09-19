@@ -142,7 +142,7 @@ router.put('/updateDonor/:id',fetchDonor, async(req,res)=> {
         if (!donor) res.status(404).send("Donor Not Found");
 
         donor = await Donor.findByIdAndUpdate(req.params.id, {$set: newDonor}, {new: true}).select("-D_Password")
-        res.json({ donor })
+        return res.json({ success: true, donor })
     } 
     catch (error) {
         console.log(error.message);

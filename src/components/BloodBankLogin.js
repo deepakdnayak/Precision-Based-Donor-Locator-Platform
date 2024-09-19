@@ -38,7 +38,7 @@ const BloodBankLogin = () => {
     useEffect(() => {
         if (bloodBankAuthToken) {
             console.log("authToken = " + bloodBankAuthToken);
-            navigate("/"); // Redirect when authToken is set
+            navigate("/bloodBankProfile"); // Redirect when authToken is set
         }
     }, [bloodBankAuthToken, navigate]); // Runs only when bloodBankAuthToken changes
 

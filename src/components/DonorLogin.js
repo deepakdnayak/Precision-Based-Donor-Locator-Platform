@@ -38,7 +38,7 @@ const DonorLogin = () => {
     useEffect(() => {
         if (donorAuthToken) {
             console.log("authToken = " + donorAuthToken);
-            navigate("/"); // Redirect when authToken is set
+            navigate("/donorProfile"); // Redirect when authToken is set
         }
     }, [donorAuthToken, navigate]);
 
