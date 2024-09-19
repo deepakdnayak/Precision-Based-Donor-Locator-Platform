@@ -1,13 +1,11 @@
 import React from 'react'
 
 const About = () => {
-  return (
-    <div>
-        <p className="m-5">s</p>
-        <p>d</p>
-        <p>d</p>
-    </div>
-  )
+    return (
+        <div className="container" style={{ marginTop: "80px" }}>
+            <h1>About</h1>
+        </div>
+    )
 }
 
 export default About

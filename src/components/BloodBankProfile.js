@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import BloodBankContext from '../context/BloodBank/BloodBankContext'
+import { Link } from 'react-router-dom';
 
 const BloodBankProfile = () => {
 
@@ -192,10 +193,10 @@ const BloodBankProfile = () => {
                             <div className="card-body py-4">
                             <div className="row">
                                     <div className="col-lg-4 col-md-12 mb-2 px-0 px-md-4">
-                                        <button className="btn btn-danger w-100">Check Inventory</button>
+                                        <Link to="/bloodBankInventory" className="btn btn-danger w-100">Check Inventory</Link>
                                     </div>
                                     <div className="col-lg-4 col-md-12 mb-2 px-0 px-md-4">
-                                        <button className="btn btn-danger w-100">Record Donations</button>
+                                        <Link to="/donationEntry" className="btn btn-danger w-100">Record Donations</Link>
                                     </div>
                                     <div className="col-lg-4 col-md-12 mb-2 px-0 px-md-4">
                                         <button type="button" className="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>

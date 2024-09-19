@@ -1,5 +1,6 @@
 import React from 'react'
 import Background from '../images/background.jpg'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     let homeCss = {
@@ -14,7 +15,7 @@ const Home = () => {
                 <div className="container text-white">
                     <h1>Be Greatfull and Donate<br />Blood</h1>
                     <h5 >Save life and be a Real Hero</h5>
-                    <button type="button" className="btn btn-light">Find Blood</button>
+                    <Link to="/findblood" className="btn btn-light">Find Blood</Link>
                 </div>
             </div>
         </div>

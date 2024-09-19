@@ -1,12 +1,16 @@
 import './App.css';
 import Home from "./components/Home";
+import About from "./components/About";
 import Navbar from './components/Navbar';
+import Services from './components/Services';
+import Contact from './components/Contact';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import FindBlood from "./components/FindBlood";
 import BloodBankInventory from "./components/BloodBankInventory";
 
 import DonorProfile from "./components/DonorProfile";
+import DonationEntry from "./components/DonationEntry";
 import BloodBankProfile from './components/BloodBankProfile'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -21,13 +25,16 @@ function App() {
                     <Navbar />
                     <Routes>
                         <Route exact path="/" element={<Home />} />
-                        <Route exact path="/about" element={<BloodBankInventory />} />
+                        <Route exact path="/about" element={<About/>} />
                         <Route exact path="/login" element={<Login />} />
                         <Route exact path="/register" element={<Register />} />
-                        <Route exact path="/services" element={<DonorProfile />} />
-                        <Route exact path="/contact" element={<FindBlood />} />
+                        <Route exact path="/services" element={<Services/>} />
+                        <Route exact path="/contact" element={<Contact />} />
                         <Route exact path="/donorProfile" element={<DonorProfile />} />
                         <Route exact path="/bloodBankProfile" element={<BloodBankProfile />} />
+                        <Route exact path="/bloodBankInventory" element={<BloodBankInventory />} />
+                        <Route exact path="/donationEntry" element={<DonationEntry/>} />
+                        <Route exact path="/findblood" element={<FindBlood/>} />
                     </Routes>
                 </Router>
             </DonorState></BloodBankState>
