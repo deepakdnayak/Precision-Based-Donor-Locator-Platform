@@ -1,12 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BloodBankContext from './BloodBankContext'
 
 const BloodBankState = props => {
     const host = "http://localhost:5000";
     const [bloodBankAuthToken, setBloodBankAuthToken] = useState(null);
+    const [bloodBankDetails, setBloodBankDetails] = useState({
+        B_Email: "",
+        B_LiscenceNo: "",
+        B_Name: "",
+        B_Address: "",
+        B_City: "",
+        B_State: "",
+        B_IsGov: false,
+        B_Contact: 0,
+    })
 
     useEffect(() => {
-        console.log("At in State = " + bloodBankAuthToken);
+        console.log("Blood Bank AuthToken in State = " + bloodBankAuthToken);
     }, [bloodBankAuthToken]);
 
     const registerBloodBank = async (credential)=> {
@@ -65,11 +75,65 @@ const BloodBankState = props => {
         }
     }
 
+    const getBloodBankProfileDetails = useCallback(async () => {
+        if (!bloodBankAuthToken) {
+            console.error("No auth token found, cannot fetch bloodBank details");
+            return;
+        }
+
+        try {
+            const responce = await fetch(`${host}/api/authBloodBank/getBloodBank`,{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "authToken": bloodBankAuthToken
+                },
+            });
+            const profile = await responce.json();
+            setBloodBankDetails(profile);    
+        } 
+        catch (error) {
+            console.error("Failed to fetch donor details", error);
+        }
+    }, [bloodBankAuthToken])
+
+    useEffect(()=> {
+        if (bloodBankAuthToken) {
+            getBloodBankProfileDetails();
+        }
+    }, [bloodBankAuthToken, getBloodBankProfileDetails]);
+
+    
+    const updateBloodBankProfile = async (id,credentials)=> {
+        try {
+            const responce = await fetch(`${host}/api/authBloodBank/updateBloodBank/${id}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    "authToken": bloodBankAuthToken
+                },
+                body: JSON.stringify(credentials),
+            });
+            const result = await responce.json();
+            if(result.success){
+                setBloodBankDetails(credentials);
+                console.log(bloodBankDetails);
+                console.log("Blood Bank Profile updated successfully");
+            }   
+            else {
+                console.log("Failed to update Blood bank Profile",result.message);
+            }
+        } 
+        catch (error) {
+            console.error("Failed to update Blood bank details",error);
+        }
+    }
+
 
 
 
     return(
-        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank }}>
+        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile}}>
             {props.children}
         </BloodBankContext.Provider>
     )

@@ -15,7 +15,7 @@ const DonorProfile = () => {
     }
 
     const handleSave = () => {
-        updateDonorProfile(editedProfile._id, editedProfile); // Assuming donorDetails contain _id for the donor
+        updateDonorProfile(editedProfile._id, editedProfile); 
     };
 
     return (

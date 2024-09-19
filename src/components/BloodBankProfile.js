@@ -1,6 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import BloodBankContext from '../context/BloodBank/BloodBankContext'
 
 const BloodBankProfile = () => {
+
+    const { bloodBankDetails, updateBloodBankProfile } = useContext(BloodBankContext);
+    const [editedProfile, setEditedProfile] = useState(bloodBankDetails);
+
+    useEffect(()=> {
+        setEditedProfile(bloodBankDetails);
+    }, [bloodBankDetails])
+
+    const onChange = (e)=> {
+        const { name, value, type, checked } = e.target;
+
+        // Handle checkbox separately
+        if (type === "checkbox") {
+            setEditedProfile({ ...editedProfile, [name]: checked });
+        } else {
+            setEditedProfile({ ...editedProfile, [name]: value });
+        }
+    }
+
+    const handlesave = () => {
+        updateBloodBankProfile(editedProfile._id, editedProfile);
+    }
+    
     return (
         <div>
             <div className="container" style={{ marginTop: "80px" }}>
@@ -19,41 +43,96 @@ const BloodBankProfile = () => {
                                         <div className="col-12 col-lg-6">
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Name : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_Name" className="form-label">Name : </label>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="B_Name"
+                                                    name="B_Name"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_Name || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Address : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_Address" className="form-label">Address : </label>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="B_Address"
+                                                    name="B_Address"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_Address || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">State : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_State" className="form-label">State : </label>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="B_State"
+                                                    name="B_State"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_State || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                             <div className="mb-3 form-check">
-                                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                                <label className="form-check-label" htmlFor="exampleCheck1">Government Managed</label>
+                                                <input 
+                                                    type="checkbox" 
+                                                    className="form-check-input" 
+                                                    id="B_IsGov"
+                                                    name="B_IsGov"
+                                                    onChange={onChange}
+                                                    checked={editedProfile.B_IsGov || false}
+                                                />
+                                                <label className="form-check-label" htmlFor="B_IsGov">Government Managed</label>
                                             </div>
 
                                         </div>
                                         <div className="col-12 col-lg-6">
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Licence Number : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_LiscenceNo" className="form-label">Licence Number : </label>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="B_LiscenceNo"
+                                                    name="B_LiscenceNo"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_LiscenceNo || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">City : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_City" className="form-label">City : </label>
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="B_City"
+                                                    name="B_City"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_City || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Contact : </label>
-                                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                                <label htmlFor="B_Contact" className="form-label">Contact : </label>
+                                                <input 
+                                                    type="tel" 
+                                                    className="form-control" 
+                                                    id="B_Contact"
+                                                    name="B_Contact"
+                                                    onChange={onChange}
+                                                    value={editedProfile.B_Contact || ''} 
+                                                    aria-describedby="emailHelp" 
+                                                />
                                             </div>
 
                                         </div>
@@ -63,7 +142,7 @@ const BloodBankProfile = () => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-danger">Save</button>
+                                <button type="button" className="btn btn-danger" onClick={handlesave} data-bs-dismiss="modal">Save</button>
                             </div>
                         </div>
                     </div>
@@ -81,7 +160,7 @@ const BloodBankProfile = () => {
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle mb-3 mt-4"
                                 />
-                                <h5 className="card-title mt-3">BBName</h5>
+                                <h5 className="card-title mt-3">{bloodBankDetails.B_Name}</h5>
                             </div>
                         </div>
                     </div>
@@ -89,25 +168,25 @@ const BloodBankProfile = () => {
                         <div className="card w-100">
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item py-3">
-                                    <strong>Licence No. : </strong><span>BLcNo</span>
+                                    <strong>Licence No. : </strong><span>{bloodBankDetails.B_LiscenceNo}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Email : </strong><span>BBEmail</span>
+                                    <strong>Email : </strong><span>{bloodBankDetails.B_Email}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Address : </strong><span>BBAddress</span>
+                                    <strong>Address : </strong><span>{bloodBankDetails.B_Address}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>City : </strong><span>BBcity</span>
+                                    <strong>City : </strong><span>{bloodBankDetails.B_City}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>State : </strong><span>BBState</span>
+                                    <strong>State : </strong><span>{bloodBankDetails.B_State}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>IdGov : </strong><span>BBIdGov</span>
+                                    <strong>IdGov : </strong><span>{bloodBankDetails.B_IsGov?"Government":"Private"}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Contact : </strong><span>BBPhone</span>
+                                    <strong>Contact : </strong><span>{bloodBankDetails.B_Contact}</span>
                                 </li>
                             </ul>
                             <div className="card-body py-4">

@@ -132,7 +132,7 @@ router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
         if (!bloodBank) res.status(404).send("Blood Bank not found");
 
         bloodBank = await BloodBank.findByIdAndUpdate(req.params.id, {$set: newBloodBank}, {new: true}).select("-B_Password")
-        res.json({ bloodBank })
+        res.json({ success: true, bloodBank })
     } 
     catch (error) {
         console.log(error.message);
