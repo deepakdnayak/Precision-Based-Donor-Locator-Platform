@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import DonorRegister from './DonorRegister'
-import BloodBankRegister from './BloodBankRegister'
+import DonorRegister from './Donor/DonorRegister'
+import BloodBankRegister from './BloodBank/BloodBankRegister'
 
 const Register = () => {
 

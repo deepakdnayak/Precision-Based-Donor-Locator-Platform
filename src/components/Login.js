@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import DonorLogin from './DonorLogin'
-import BloodBankLogin from './BloodBankLogin'
+import DonorLogin from './Donor/DonorLogin'
+import BloodBankLogin from './BloodBank/BloodBankLogin'
 
 const Login = () => {
 

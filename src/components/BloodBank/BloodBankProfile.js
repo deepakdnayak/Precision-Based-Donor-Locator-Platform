@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import BloodBankContext from '../context/BloodBank/BloodBankContext'
+import BloodBankContext from '../../context/BloodBank/BloodBankContext'
 import { Link } from 'react-router-dom';
 
 const BloodBankProfile = () => {

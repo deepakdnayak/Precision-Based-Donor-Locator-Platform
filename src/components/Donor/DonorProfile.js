@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import DonorContext from '../context/Donor/DonorContext'
+import DonorContext from '../../context/Donor/DonorContext'
 
 const DonorProfile = () => {
 

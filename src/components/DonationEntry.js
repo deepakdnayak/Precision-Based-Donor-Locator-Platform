@@ -32,7 +32,7 @@ const DonationEntery = () => {
                 </div>
 
                 <div className="col-md-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                    <button type="submit" className="btn btn-danger">Submit</button>
                 </div>
 
             </form>

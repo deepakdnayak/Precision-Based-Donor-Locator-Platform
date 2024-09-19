@@ -4,6 +4,16 @@ import BloodBankContext from './BloodBankContext'
 const BloodBankState = props => {
     const host = "http://localhost:5000";
     const [bloodBankAuthToken, setBloodBankAuthToken] = useState(null);
+    const [bloodInventoryDetails, setBloodInventoryDetails] = useState({
+        Aplus: 0,
+        Amin: 0,
+        Bplus: 0,
+        Bmin: 0,
+        Oplus: 0,
+        Omin: 0,
+        ABplus: 0,
+        ABmin: 0,
+    });
     const [bloodBankDetails, setBloodBankDetails] = useState({
         B_Email: "",
         B_LiscenceNo: "",
@@ -13,7 +23,7 @@ const BloodBankState = props => {
         B_State: "",
         B_IsGov: false,
         B_Contact: 0,
-    })
+    });
 
     useEffect(() => {
         console.log("Blood Bank AuthToken in State = " + bloodBankAuthToken);
@@ -129,11 +139,35 @@ const BloodBankState = props => {
         }
     }
 
+    const fetchInventoryDetails =  useCallback(async ()=> {
+        try {
+            const responce = await fetch(`${host}/api/bloodInventory/getInventoryDetails`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    "authToken": bloodBankAuthToken
+                },
+            });
+            const details = await responce.json() 
+            setBloodInventoryDetails(details);
+        } 
+        catch (error) {
+            
+        }
+    }, [bloodBankAuthToken]);
+
+    useEffect(()=> {
+        if (bloodBankAuthToken) {
+            fetchInventoryDetails();
+            console.log(bloodInventoryDetails);
+        }
+    }, [fetchInventoryDetails,bloodInventoryDetails,bloodBankAuthToken])
+
 
 
 
     return(
-        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile}}>
+        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile, bloodInventoryDetails}}>
             {props.children}
         </BloodBankContext.Provider>
     )
