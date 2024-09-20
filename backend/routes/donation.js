@@ -89,10 +89,10 @@ router.post('/addDonation', fetchBloodBank, async (req,res)=> {
 })
 
 // Route 3 : Get all Donor Names using GET : "/api/donation/getDonationDetails" : LOGIN required
-router.get('/getDonorNames', async (req,res)=> {
+router.get('/searchDonorDetails', async (req,res)=> {
     try {
-        const donors = await Donor.find({}).select(["D_Fname","D_Lname"])
-        return res.json(donors)    
+        const donors = await Donor.findOne({D_Email: req.body.D_Email}).select("-D_Password")
+        return res.json({ success: true, donors})  
     } 
     catch (error) {
         console.error(error.message);
