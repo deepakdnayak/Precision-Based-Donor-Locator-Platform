@@ -88,10 +88,10 @@ router.post('/addDonation', fetchBloodBank, async (req,res)=> {
     }
 })
 
-// Route 3 : Get all Donor Names using GET : "/api/donation/getDonationDetails" : LOGIN required
-router.get('/searchDonorDetails', async (req,res)=> {
+// Route 3 : Get all matching Donor Names using GET : "/api/donation/getDonationDetails" : LOGIN not required
+router.post('/searchDonorMatch', async (req,res)=> {
     try {
-        const donors = await Donor.findOne({D_Email: req.body.D_Email}).select("-D_Password")
+        const donors = await Donor.find({D_BloodGroup: req.body.D_BloodGroup}).select("-D_Password")
         return res.json({ success: true, donors})  
     } 
     catch (error) {
@@ -99,7 +99,5 @@ router.get('/searchDonorDetails', async (req,res)=> {
         res.json(500).send("Internal server error");
     }
 })
-
-
 
 module.exports = router
