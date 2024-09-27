@@ -10,7 +10,6 @@ import FindBlood from "./components/FindBlood";
 import BloodBankInventory from "./components/BloodBank/BloodBankInventory";
 
 import DonorProfile from "./components/Donor/DonorProfile";
-import DonationEntry from "./components/DonationEntry";
 import BloodBankProfile from './components/BloodBank/BloodBankProfile'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -33,7 +32,6 @@ function App() {
                         <Route exact path="/donorProfile" element={<DonorProfile />} />
                         <Route exact path="/bloodBankProfile" element={<BloodBankProfile />} />
                         <Route exact path="/bloodBankInventory" element={<BloodBankInventory />} />
-                        <Route exact path="/donationEntry" element={<DonationEntry/>} />
                         <Route exact path="/findblood" element={<FindBlood/>} />
                     </Routes>
                 </Router>
