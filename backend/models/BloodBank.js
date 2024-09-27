@@ -38,6 +38,10 @@ const BloodBankSchema = new Schema({
         type: Number,
         required: true
     },
+    B_InventoryAPI: {
+        type: String,
+        required: true
+    },
 })
 
 module.exports = mongoose.model("BloodBank", BloodBankSchema)

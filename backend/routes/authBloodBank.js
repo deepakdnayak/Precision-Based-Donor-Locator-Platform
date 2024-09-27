@@ -39,7 +39,8 @@ router.post('/createBloodBank',[
             B_City:  "default",
             B_State:   "default",
             B_IsGov:   false,
-            B_Contact:   0
+            B_Contact:   0,
+            B_InventoryAPI: "default" 
         });
 
         const data = {
@@ -113,7 +114,7 @@ router.post('/getBloodBank',fetchBloodBank, async (req,res)=> {
 // Route 4 : Update a BloodBank detail using : PUT "/api/authBloodBank/updateBloodBank" Login Required
 router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
 
-    const {B_LiscenceNo,B_Name,B_Address,B_City,B_State,B_IsGov,B_Contact} = req.body;
+    const {B_LiscenceNo,B_Name,B_Address,B_City,B_State,B_IsGov,B_Contact,B_InventoryAPI} = req.body;
 
     try {
         
@@ -126,6 +127,7 @@ router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
         if (B_State) newBloodBank.B_State = B_State;
         if (B_IsGov) newBloodBank.B_IsGov = B_IsGov;
         if (B_Contact) newBloodBank.B_Contact = B_Contact;
+        if (B_InventoryAPI) newBloodBank.B_InventoryAPI = B_InventoryAPI;
 
         // find the blood bank to be updated and update it
         let bloodBank = await BloodBank.findById(req.params.id);
