@@ -4,6 +4,8 @@ import BloodBankContext from './BloodBankContext'
 const BloodBankState = props => {
     const host = "http://localhost:5000";
     const [bloodBankAuthToken, setBloodBankAuthToken] = useState(null);
+    const [bloodBankApi, setBloodBankApi] = useState(null)
+    const [bloodBankInventory, setBloodBankInventory] = useState(null);
     const [bloodBankDetails, setBloodBankDetails] = useState({
         B_Email: "",
         B_LiscenceNo: "",
@@ -15,9 +17,9 @@ const BloodBankState = props => {
         B_Contact: 0,
     });
 
-    useEffect(() => {
-        console.log("Blood Bank AuthToken in State = " + bloodBankAuthToken);
-    }, [bloodBankAuthToken]);
+    // useEffect(() => {
+    //     console.log("Blood Bank AuthToken in State = " + bloodBankAuthToken);
+    // }, [bloodBankAuthToken]);
 
     const registerBloodBank = async (credential)=> {
         try {
@@ -91,17 +93,42 @@ const BloodBankState = props => {
             });
             const profile = await responce.json();
             setBloodBankDetails(profile);    
+            setBloodBankApi(profile.B_InventoryAPI);
+            console.log("API = ",bloodBankApi);
         } 
         catch (error) {
             console.error("Failed to fetch donor details", error);
         }
-    }, [bloodBankAuthToken])
+    }, [bloodBankAuthToken,bloodBankApi])
 
     useEffect(()=> {
         if (bloodBankAuthToken) {
             getBloodBankProfileDetails();
         }
     }, [bloodBankAuthToken, getBloodBankProfileDetails]);
+
+    const getBloodBankInventory = useCallback(async () => {
+        if (!bloodBankApi) {
+            console.error("No API found, cannot fetch bloodBank details");
+            return;
+        }
+
+        try {
+            const responce = await fetch(`${bloodBankApi}`);
+            const Inventory = await responce.json();
+            console.log(Inventory);
+            setBloodBankInventory(Inventory);
+        } 
+        catch (error) {
+            console.error("Failed to fetch inventory from API", error);
+        }
+    },[bloodBankApi]);
+
+    useEffect(()=> {
+        if(bloodBankApi){
+            getBloodBankInventory();
+        }
+    },[bloodBankApi,getBloodBankInventory]);
 
     
     const updateBloodBankProfile = async (id,credentials)=> {
@@ -151,7 +178,7 @@ const BloodBankState = props => {
 
 
     return(
-        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile, searchMatchDonor }}>
+        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile, searchMatchDonor, bloodBankInventory }}>
             {props.children}
         </BloodBankContext.Provider>
     )

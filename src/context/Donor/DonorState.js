@@ -20,9 +20,9 @@ const DonorState = props => {
         D_Contact: '',
     });
 
-    useEffect(() => {
-        console.log("Donor Auth Token in State: " + donorAuthToken);
-    }, [donorAuthToken]);
+    // useEffect(() => {
+    //     console.log("Donor Auth Token in State: " + donorAuthToken);
+    // }, [donorAuthToken]);
 
 
     const registerDonor = async (credential)=> {

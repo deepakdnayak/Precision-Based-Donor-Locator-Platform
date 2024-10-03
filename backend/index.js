@@ -12,6 +12,7 @@ app.use(express.json())
 app.use('/api/authDonor', require('./routes/authDonor'))
 app.use('/api/authBloodBank', require('./routes/authBloodBank'))
 app.use('/api/searchBlood', require('./routes/searchBlood'))
+app.use('/api/donation', require('./routes/donation'))
 
 
 app.listen(port, ()=> {
