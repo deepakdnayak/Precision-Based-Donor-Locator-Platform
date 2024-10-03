@@ -137,7 +137,7 @@ const DonorState = props => {
     
 
     return(
-        <DonorContext.Provider value={{ donorAuthToken, registerDonor, loginDonor, donorDetails, updateDonorProfile }}>
+        <DonorContext.Provider value={{ donorAuthToken, setDonorAuthToken, registerDonor, loginDonor, donorDetails, updateDonorProfile }}>
             {props.children}
         </DonorContext.Provider>
     )

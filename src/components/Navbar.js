@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../images/NavLogo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import BloodBankContext from '../context/BloodBank/BloodBankContext'
+import DonorContext from '../context/Donor/DonorContext'
 
-/**
- * This component renders a navigation bar for the application.
- * It includes a logo, navigation links, and login/register buttons.
- *
- * @returns {JSX.Element} The rendered navbar.
- */
+
 function Navbar() {
+
+  const { bloodBankAuthToken,setBloodBankAuthToken } = useContext(BloodBankContext);
+  const { donorAuthToken, setDonorAuthToken } = useContext(DonorContext);
+  const navigate = useNavigate()
+
+  const handleLogout = ()=> {
+    if(bloodBankAuthToken) setBloodBankAuthToken(null);
+    if(donorAuthToken) setDonorAuthToken(null);
+    navigate("/");
+  }
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -57,6 +65,7 @@ function Navbar() {
                 </Link>
               </li>
             </ul>
+            {(!bloodBankAuthToken && !donorAuthToken )?
             <form className="d-flex" role="search">
               <Link to="/login" className="btn btn-danger ms-2">
                 Login
@@ -65,6 +74,13 @@ function Navbar() {
                 Register
               </Link>
             </form>
+            :
+            <form className="d-flex" role="search">
+            <div onClick={handleLogout} className="btn btn-danger ms-2">
+              Logout
+            </div>
+          </form>
+            }
           </div>
         </div>
       </nav>

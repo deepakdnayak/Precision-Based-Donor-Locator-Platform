@@ -178,7 +178,7 @@ const BloodBankState = props => {
 
 
     return(
-        <BloodBankContext.Provider value={{ bloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile, searchMatchDonor, bloodBankInventory }}>
+        <BloodBankContext.Provider value={{ bloodBankAuthToken, setBloodBankAuthToken, registerBloodBank, loginBloodBank, bloodBankDetails, updateBloodBankProfile, searchMatchDonor, bloodBankInventory }}>
             {props.children}
         </BloodBankContext.Provider>
     )
