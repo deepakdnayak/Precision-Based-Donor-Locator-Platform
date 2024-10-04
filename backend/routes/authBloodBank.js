@@ -4,7 +4,7 @@ const { validationResult, body } = require('express-validator')  // used to chec
 const bcrypt = require('bcrypt') // used to hash passwords
 const jwt = require('jsonwebtoken') // used to generate BloodBank auth web token
 const JWT_SECRET = "BloodBankisaMERNapp";
-
+const mongoose = require('mongoose');   
 let fetchBloodBank = require('../middleware/fetchBloodBank')
 
 const BloodBank = require("../models/BloodBank")
@@ -102,7 +102,8 @@ router.post('/getBloodBank',fetchBloodBank, async (req,res)=> {
         
         let BloodBankId = req.user.id;
         const user = await BloodBank.findById(BloodBankId).select("-B_Password")
-        res.send(user)
+        if(user) res.send(user)
+        else res.json({success: false})
 
     } 
     catch (error) {
@@ -117,6 +118,10 @@ router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
     const {B_LiscenceNo,B_Name,B_Address,B_City,B_State,B_IsGov,B_Contact,B_InventoryAPI} = req.body;
 
     try {
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ success: false, error: "Invalid donor ID" });
+        }
         
         // create new blood bank object
         const newBloodBank = {};
@@ -131,7 +136,7 @@ router.put('/updateBloodBank/:id',fetchBloodBank, async (req,res)=> {
 
         // find the blood bank to be updated and update it
         let bloodBank = await BloodBank.findById(req.params.id);
-        if (!bloodBank) res.status(404).send("Blood Bank not found");
+        if (!bloodBank) return res.status(404).send("Blood Bank not found");
 
         bloodBank = await BloodBank.findByIdAndUpdate(req.params.id, {$set: newBloodBank}, {new: true}).select("-B_Password")
         res.json({ success: true, bloodBank })
