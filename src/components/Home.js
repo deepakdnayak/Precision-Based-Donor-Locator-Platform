@@ -2,14 +2,7 @@ import React from 'react';
 import Background from '../images/background.jpg';
 import { Link } from 'react-router-dom';
 
-/**
- * This component renders the home page of the application.
- * It displays a background image, a title, and a button to navigate to the "Find Blood" page.
- *
- * @returns {JSX.Element} The rendered component.
- */
 const Home = () => {
-  // CSS styles for the home page background
   const homeCss = {
     backgroundImage: `url(${Background})`,
     backgroundSize: 'cover',
