@@ -9,12 +9,11 @@ const app = express();
 const port = 5000;
 
 app.use(express.json())
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use('/api/authDonor', require('./routes/authDonor'))
 app.use('/api/authBloodBank', require('./routes/authBloodBank'))
 app.use('/api/searchBlood', require('./routes/searchBlood'))
-app.use('/api/donation', require('./routes/donation'))
 
 // Function to update inventories
 const updateInventories = async () => {
