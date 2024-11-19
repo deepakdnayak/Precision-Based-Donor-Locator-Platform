@@ -1,1 +1,0 @@
-MONGODB_URL = mongodb+srv://deepakdnayak2004:gxbW5A3iMTxfciNd@mini-project.ca3js.mongodb.net/bloodbank?retryWrites=true&w=majority&appName=Mini-Project
