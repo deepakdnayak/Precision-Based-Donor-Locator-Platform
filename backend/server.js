@@ -1,5 +1,5 @@
-const connectToMongo = require('./db')
-const  express = require("express")
+const connectToMongo = require('./config/db')
+const express = require("express")
 const cors = require("cors")
 const cron = require("node-cron");
 const axios = require("axios");
@@ -8,8 +8,8 @@ connectToMongo();
 const app = express();
 const port = 5000;
 
-app.use(cors())
 app.use(express.json())
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use('/api/authDonor', require('./routes/authDonor'))
 app.use('/api/authBloodBank', require('./routes/authBloodBank'))
