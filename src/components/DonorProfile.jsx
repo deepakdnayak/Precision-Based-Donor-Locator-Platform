@@ -11,12 +11,59 @@ const DonorProfile = () => {
     }, [donorDetails]);
 
     const onChange = (e) => {
-        setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value })
-    }
+        const { name, value } = e.target;
+        setEditedProfile({ ...editedProfile, [name]: value });
+    };
+    
 
     const handleSave = () => {
         updateDonorProfile(editedProfile._id, editedProfile); 
     };
+
+    const states = [
+        { id: 1, name: "Andhra Pradesh" },
+        { id: 2, name: "Arunachal Pradesh" },
+        { id: 3, name: "Assam" },
+        { id: 4, name: "Bihar" },
+        { id: 5, name: "Chhattisgarh" },
+        { id: 6, name: "Goa" },
+        { id: 7, name: "Gujarat" },
+        { id: 8, name: "Haryana" },
+        { id: 9, name: "Himachal Pradesh" },
+        { id: 10, name: "Jharkhand" },
+        { id: 11, name: "Karnataka" },
+        { id: 12, name: "Kerala" },
+        { id: 13, name: "Madhya Pradesh" },
+        { id: 14, name: "Maharashtra" },
+        { id: 15, name: "Manipur" },
+        { id: 16, name: "Meghalaya" },
+        { id: 17, name: "Mizoram" },
+        { id: 18, name: "Nagaland" },
+        { id: 19, name: "Odisha" },
+        { id: 20, name: "Punjab" },
+        { id: 21, name: "Rajasthan" },
+        { id: 22, name: "Sikkim" },
+        { id: 23, name: "Tamil Nadu" },
+        { id: 24, name: "Telangana" },
+        { id: 25, name: "Tripura" },
+        { id: 26, name: "Uttar Pradesh" },
+        { id: 27, name: "Uttarakhand" },
+        { id: 28, name: "West Bengal" }
+      ];
+
+      function formatBloodGroup(bloodGroup) {
+        if (bloodGroup === "Aplus") return "A+";
+        if (bloodGroup === "Aminus") return "A-";
+        if (bloodGroup === "Bplus") return "B+";
+        if (bloodGroup === "Bminus") return "B-";
+        if (bloodGroup === "Oplus") return "O+";
+        if (bloodGroup === "Ominus") return "O-";
+        if (bloodGroup === "ABplus") return "AB+";
+        if (bloodGroup === "ABminus") return "AB-";
+        
+        return bloodGroup;
+      }
+      
 
     return (
         <div>
@@ -85,16 +132,24 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">State : </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
+                                                <label htmlFor="B_State" className="form-label">State:</label>
+                                                <select
+                                                    className="form-select"
+                                                    aria-label="Select State"
                                                     id="D_State"
                                                     name="D_State"
                                                     onChange={onChange}
                                                     value={editedProfile.D_State || ''}
-                                                />
+                                                >
+                                                    <option value="" disabled>Select a State</option>
+                                                    {states.map(state => (
+                                                        <option key={state.id} value={state.name}>
+                                                            {state.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
                                             </div>
+
 
                                         </div>
                                         <div className="col-12 col-lg-6">
@@ -112,27 +167,42 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Gender : </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
+                                                <label htmlFor="B_State" className="form-label">Gender :</label>
+                                                <select
+                                                    className="form-select"
+                                                    aria-label="Select Gender"
                                                     id="D_Gender"
                                                     name="D_Gender"
                                                     onChange={onChange}
                                                     value={editedProfile.D_Gender || ''}
-                                                />
+                                                > 
+                                                <option value="" disabled>Select Gender </option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                                </select>
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Blood Group : </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
+                                                <label htmlFor="B_State" className="form-label">Blood Group :</label>
+                                                <select
+                                                    className="form-select"
+                                                    aria-label="Select Gender"
                                                     id="D_BloodGroup"
                                                     name="D_BloodGroup"
                                                     onChange={onChange}
                                                     value={editedProfile.D_BloodGroup || ''}
-                                                />
+                                                > 
+                                                <option value="" disabled>Select Blood Group </option>
+                                                <option value="Aplus">A+</option>
+                                                <option value="Aminus">A-</option>
+                                                <option value="Bplus">B+</option>
+                                                <option value="Bminus">B-</option>
+                                                <option value="Oplus">O+</option>
+                                                <option value="Ominus">O-</option>
+                                                <option value="ABplus">AB+</option>
+                                                <option value="ABminus">AB-</option>
+                                                </select>
                                             </div>
 
                                             <div className="mb-3">
@@ -182,7 +252,8 @@ const DonorProfile = () => {
                         <div className="card w-100">
                             <div className="card-body text-center">
                                 <img
-                                    src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                    
+                                    src={donorDetails.D_Gender=="Male"?'https://bootdey.com/img/Content/avatar/avatar7.png':'https://static.vecteezy.com/system/resources/previews/004/899/680/non_2x/beautiful-blonde-woman-with-makeup-avatar-for-a-beauty-salon-illustration-in-the-cartoon-style-vector.jpg'}
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle mb-3 mt-4"
                                 />
@@ -202,7 +273,7 @@ const DonorProfile = () => {
                                 </li>
                                 <li className="list-group-item py-3">
                                     <div className="row">
-                                        <div className="col"><strong>Blood Group : </strong><span>{donorDetails.D_BloodGroup}</span></div>
+                                    <div className="col"><strong>Blood Group: </strong><span>{formatBloodGroup(donorDetails.D_BloodGroup)}</span></div>
                                         <div className="col"><strong>Last Donation Date : </strong><span>{donorDetails.D_LastDonationDate}</span></div>
                                     </div>
                                 </li>

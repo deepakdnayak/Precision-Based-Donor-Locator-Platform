@@ -26,6 +26,37 @@ const BloodBankProfile = () => {
         updateBloodBankProfile(editedProfile._id, editedProfile);
     }
 
+    const states = [
+        { id: 1, name: "Andhra Pradesh" },
+        { id: 2, name: "Arunachal Pradesh" },
+        { id: 3, name: "Assam" },
+        { id: 4, name: "Bihar" },
+        { id: 5, name: "Chhattisgarh" },
+        { id: 6, name: "Goa" },
+        { id: 7, name: "Gujarat" },
+        { id: 8, name: "Haryana" },
+        { id: 9, name: "Himachal Pradesh" },
+        { id: 10, name: "Jharkhand" },
+        { id: 11, name: "Karnataka" },
+        { id: 12, name: "Kerala" },
+        { id: 13, name: "Madhya Pradesh" },
+        { id: 14, name: "Maharashtra" },
+        { id: 15, name: "Manipur" },
+        { id: 16, name: "Meghalaya" },
+        { id: 17, name: "Mizoram" },
+        { id: 18, name: "Nagaland" },
+        { id: 19, name: "Odisha" },
+        { id: 20, name: "Punjab" },
+        { id: 21, name: "Rajasthan" },
+        { id: 22, name: "Sikkim" },
+        { id: 23, name: "Tamil Nadu" },
+        { id: 24, name: "Telangana" },
+        { id: 25, name: "Tripura" },
+        { id: 26, name: "Uttar Pradesh" },
+        { id: 27, name: "Uttarakhand" },
+        { id: 28, name: "West Bengal" }
+      ];
+
     return (
         <div>
             <div className="container" style={{ marginTop: "80px" }}>
@@ -105,20 +136,25 @@ const BloodBankProfile = () => {
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-12 col-lg-6">
-                                            <div className="mb-3">
-                                                <label htmlFor="B_State" className="form-label">State : </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
+                                        <div className="mb-3">
+                                                <label htmlFor="B_State" className="form-label">State:</label>
+                                                <select
+                                                    className="form-select"
+                                                    aria-label="Select State"
                                                     id="B_State"
                                                     name="B_State"
                                                     onChange={onChange}
                                                     value={editedProfile.B_State || ''}
-                                                    aria-describedby="emailHelp"
-                                                />
+                                                >
+                                                    <option value="" disabled>Select a State</option>
+                                                    {states.map(state => (
+                                                        <option key={state.id} value={state.name}>
+                                                            {state.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
                                             </div>
-                                        </div>
+
                                         <div className="col-12 col-lg-6">
                                             <div className="mb-3">
                                                 <label htmlFor="B_Contact" className="form-label">Contact : </label>
