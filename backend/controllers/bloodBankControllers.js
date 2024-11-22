@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt') // used to hash passwords
 const jwt = require('jsonwebtoken') // used to generate BloodBank auth web token
 const JWT_SECRET = "BloodBankisaMERNapp";
 const BloodBank = require("../models/BloodBank")
+const mongoose = require('mongoose')
 
 
 const createBloodBank = async(req,res)=> {
