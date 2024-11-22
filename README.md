@@ -1,18 +1,8 @@
-# Blood Bank App
+# React + Vite
 
-This MERN application focuses on arranging blood to a needy patient as quickly as possible through a registered blood bank or from a blood donor.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Available Scripts
+Currently, two official plugins are available:
 
-In the project directory, you can run:
-
-### `npm run both`
-
-Runs the app along with the backend in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-## Team Members
-- [Deepak Nayak](https://github.com/deepakdnayak)
-- [Shamanth Shetty](https://github.com/shamanthshetty99)
-- [Praveena Gunaga](https://github.com/Praveena2004-Gunaga)
-- [Anusha Pandit](https://github.com/Anusha-Pandit)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
