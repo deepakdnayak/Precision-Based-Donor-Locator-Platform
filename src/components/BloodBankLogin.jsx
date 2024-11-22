@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useBloodBank } from "../context/BloodBankContext";
+import { Toaster, toast } from 'sonner'
 
 const BloodBankLogin = () => {
     const { loginBloodBank, bloodBankAuthToken } = useBloodBank();
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({ B_Email: '', B_Password: '' });
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState('')
 
     const onChange = e => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -26,11 +25,7 @@ const BloodBankLogin = () => {
         console.log("authToken = " + bloodBankAuthToken);
 
         if (!result.success) {
-            setToastMessage(result.message || "Login failed.");
-            setShowToast(true);
-        }
-        else {
-            setShowToast(false);
+            toast.error('Login Failed!! Please try with correct credentials.')
         }
     }
 
@@ -44,16 +39,6 @@ const BloodBankLogin = () => {
 
     return (
         <div>
-            {showToast && (
-                <div className="toast align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div className="d-flex">
-                        <div className="toast-body">
-                            {toastMessage}
-                        </div>
-                        <button type="button" className="btn-close me-2 m-auto" onClick={() => setShowToast(false)}></button>
-                    </div>
-                </div>
-            )}
             <form onSubmit={handleSubmit}>
                 <div className="my-4">
                     <p className="text-center mx-3 mb-0 fs-1"> BLOOD BANK LOGIN </p>
@@ -83,6 +68,7 @@ const BloodBankLogin = () => {
                         onChange={onChange}
                         className="form-control form-control-lg"
                         placeholder="Enter password"
+                        minLength={5}
                         required
                     />
                 </div>
@@ -94,6 +80,7 @@ const BloodBankLogin = () => {
                         className="link-danger">Register</Link></p>
                 </div>
             </form>
+            <Toaster position="top-center" expand={false} richColors   />
         </div>
     )
 }

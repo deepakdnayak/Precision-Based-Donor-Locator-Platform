@@ -8,7 +8,6 @@ import BloodBankProfile from './components/BloodBankProfile';
 import BloodBankInventory from './components/BloodBankInventory';
 import FindBlood from './components/FindBlood';
 import DonorProfile from './components/DonorProfile';
-import GoogleLogin from './components/GoogleLoginComp';
 
 const App = ()=> {
   return (
@@ -23,7 +22,6 @@ const App = ()=> {
           <Route exact path="/donorProfile" element={<DonorProfile />} />
           <Route exact path="/bloodBankInventory" element={<BloodBankInventory />} />
           <Route exact path="/findblood" element={<FindBlood/>} />
-          <Route exact path="/google" element={<GoogleLogin/>} />
         </Routes><></>
       </Router>
     </>
