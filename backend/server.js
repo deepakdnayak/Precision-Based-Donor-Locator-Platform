@@ -19,7 +19,7 @@ app.use('/api/searchBlood', require('./routes/searchBlood'))
 const updateInventories = async () => {
     try {
         console.log("Updating inventories...");
-        const response = await axios.get("http://localhost:5000/api/update-inventories");
+        const response = await axios.get("http://localhost:5000/api/searchBlood/update-inventories");
         console.log("Inventories updated successfully:", response.data);
     } catch (error) {
         console.error("Error updating inventories:", error.message);

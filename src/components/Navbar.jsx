@@ -87,9 +87,9 @@ const Navbar = () => {
             <div onClick={handleLogout} className="btn btn-danger ms-2">
               Logout
             </div>
-            <Link to="/bloodBankProfile" className="btn btn-danger ms-2">
+            <div onClick={handleProfileChange} className="btn btn-danger ms-2">
               Profile
-            </Link>
+            </div>
           </form>
             }
           </div>
