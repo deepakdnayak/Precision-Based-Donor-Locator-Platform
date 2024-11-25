@@ -4,7 +4,6 @@ import Group from '../images/group.png'
 import Mission from '../images/mission.png'
 import Goal from '../images/goal.png'
 import AutoNumberTicker from "./AutoNumberTicker";
-import Footer from "./Footer";
 
 const Test = () => {
   return (
@@ -23,11 +22,17 @@ const Test = () => {
               blood!
             </p>
             <div className="mt-4">
-              <button className="btn btn-danger btn-lg me-3">
-                Search Blood
-              </button>
-              <button className="btn btn-dark btn-lg">Be a donor</button>
+              <div className="d-flex flex-wrap text-start text-lg-start text-center justify-content-lg-start justify-content-center">
+                <button className="btn btn-danger btn-lg me-3 mt-2">
+                  Search Blood
+                </button>
+                <button className="btn btn-dark btn-lg mt-2">
+                  Be a donor
+                </button>
+              </div>
             </div>
+
+
           </div>
           <div className="col-md-6 text-center d-none d-md-block">
             <video
@@ -35,7 +40,6 @@ const Test = () => {
               autoPlay
               muted
               loop
-              controls
               className="img-fluid rounded"
               style={{ maxWidth: "100%" }}
             >
@@ -109,7 +113,7 @@ const Test = () => {
       </div>
 
       {/* Third Section */}
-      <div className="container my-5" style={{paddingTop: '100px'}}>
+      <div className="container my-5" style={{paddingTop: '100px', paddingBottom: '100px'}}>
         <div className="text-center mb-4">
           <h1 className="text-uppercase text-black fw-bold mb-4">
             Our Connections
@@ -142,8 +146,81 @@ const Test = () => {
           </div>
         </div>
       </div>
-      <Footer/>
-
+      
+      {/* Footer */}
+      <footer className="py-5 bg-danger-subtle">
+      <div className="container">
+        <div className="row text-center text-md-start">
+          {/* About Section */}
+          <div className="col-md-4 mb-4">
+            <h5 className="fw-bold text-danger">Donor Locator</h5>
+            <p className="text-muted">
+              A platform that bridges the gap between blood donors and those in
+              need, helping save lives across communities.
+            </p>
+          </div>
+          {/* Quick Links */}
+          <div className="col-md-4 mb-4">
+            <h5 className="fw-bold">Quick Links</h5>
+            <ul className="list-unstyled">
+              <li>
+                <a href="#about" className="text-muted text-decoration-none">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#donate" className="text-muted text-decoration-none">
+                  Donate Blood
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-muted text-decoration-none">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-muted text-decoration-none">
+                  Search Blood
+                </a>
+              </li>
+            </ul>
+          </div>
+          {/* Contact Section */}
+          <div className="col-md-4 mb-4">
+            <h5 className="fw-bold">Contact Us</h5>
+            <p className="text-muted mb-2">
+              <i className="bi bi-geo-alt text-danger me-2"></i>
+              1234 Blood Donor Locator Karnataka, Mangalore, India
+            </p>
+            <p className="text-muted mb-2">
+              <i className="bi bi-envelope text-danger me-2"></i>
+              support@donorlocator.com
+            </p>
+            <p className="text-muted">
+              <i className="bi bi-telephone text-danger me-2"></i>
+              +91 9844416474
+            </p>
+          </div>
+        </div>
+        {/* Social Media Icons */}
+        <div className="text-center mt-4">
+          <a href="#facebook" className="text-danger me-3">
+            <i className="bi bi-facebook fs-3"></i>
+          </a>
+          <a href="#twitter" className="text-danger me-3">
+            <i className="bi bi-twitter fs-3"></i>
+          </a>
+          <a href="#instagram" className="text-danger">
+            <i className="bi bi-instagram fs-3"></i>
+          </a>
+        </div>
+        <div className="text-center mt-3">
+          <small className="text-muted">
+            © {new Date().getFullYear()} Donor Locator. All Rights Reserved.
+          </small>
+        </div>
+      </div>
+    </footer>
       
     </div>
   );
