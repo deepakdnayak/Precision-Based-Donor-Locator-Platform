@@ -4,8 +4,9 @@ import Group from '../images/group.png'
 import Mission from '../images/mission.png'
 import Goal from '../images/goal.png'
 import AutoNumberTicker from "./AutoNumberTicker";
+import { Link } from "react-router-dom";
 
-const Test = () => {
+const NHome = () => {
   return (
     <div className="block" style={{ marginTop: "150px" }}>
       <div className="container-fluid p-5" style={{ backgroundColor: "#fff" }}>
@@ -23,12 +24,12 @@ const Test = () => {
             </p>
             <div className="mt-4">
               <div className="d-flex flex-wrap text-start text-lg-start text-center justify-content-lg-start justify-content-center">
-                <button className="btn btn-danger btn-lg me-3 mt-2">
+                <Link to="/findBlood" className="btn btn-danger btn-lg me-3 mt-2">
                   Search Blood
-                </button>
-                <button className="btn btn-dark btn-lg mt-2">
+                </Link>
+                <Link to="/login" className="btn btn-dark btn-lg mt-2">
                   Be a donor
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -164,24 +165,24 @@ const Test = () => {
             <h5 className="fw-bold">Quick Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#about" className="text-muted text-decoration-none">
+                <Link to="/" className="text-muted text-decoration-none">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#donate" className="text-muted text-decoration-none">
+                <Link to="/" className="text-muted text-decoration-none">
                   Donate Blood
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-muted text-decoration-none">
+                <Link to="/" className="text-muted text-decoration-none">
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#about" className="text-muted text-decoration-none">
+                <Link to="/findblood" className="text-muted text-decoration-none">
                   Search Blood
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -226,4 +227,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default NHome;
