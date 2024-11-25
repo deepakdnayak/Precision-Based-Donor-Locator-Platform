@@ -69,9 +69,9 @@ const NDRegister = () => {
                 <div className="flex-grow-1 border-top border-2 border-secondary"></div>
             </div>
             <div className="btn border border-black w-100 mb-3">Continue with Google</div>
-            <div className="btn btn-outline-danger w-100 mb-3">Blood Bank Sign In &#8594; </div>
+            <Link to="/bloodbanksignin" className="btn btn-outline-danger w-100 mb-3">Blood Bank Sign In &#8594; </Link>
             {/* <!-- Free Space --> */}
-            <p className="text-center mt-2">Already have an account? <Link to="/">Log In</Link></p>
+            <p className="text-center mt-2">Already have an account? <Link to="/donorlogin">Log In</Link></p>
         </div>
     </div>
     <Toaster position="top-center" expand={false} richColors   />

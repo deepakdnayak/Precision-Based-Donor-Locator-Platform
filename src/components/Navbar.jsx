@@ -93,10 +93,10 @@ const Navbar = () => {
           </ul>
           {(!bloodBankAuthToken && !donorAuthToken) ? (
             <form className="d-flex" role="search">
-              <Link to="/login" className="btn btn-danger ms-2">
+              <Link to="/donorlogin" className="btn btn-danger ms-2">
                 Login
               </Link>
-              <Link to="/register" className="btn btn-danger ms-2">
+              <Link to="/donorsignin" className="btn btn-danger ms-2">
                 Register
               </Link>
             </form>

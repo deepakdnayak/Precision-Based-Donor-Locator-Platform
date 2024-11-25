@@ -40,7 +40,7 @@ const NBLogin = () => {
 
 
   return (
-    <div  className="d-flex justify-content-center" style={{ marginTop: "40px", marginBottom: "20px" }}>
+    <div  className="d-flex justify-content-center" style={{ marginTop: "65px", marginBottom: "20px" }}>
       <div className="card shadow-lg border-1 border-secondary-subtle p-4" style={{width: '25rem'}}>
         <div className="card-body">
             <h3 className="card-title">BLOOD BANK LOGIN</h3>
@@ -62,9 +62,9 @@ const NBLogin = () => {
                 <div className="flex-grow-1 border-top border-2 border-secondary"></div>
             </div>
             <div className="btn border border-black w-100 mb-3">Continue with Google</div>
-            <div className="btn btn-outline-danger w-100 mb-3">Donor Login &#8594; </div>
+            <Link to="/donorlogin" className="btn btn-outline-danger w-100 mb-3">Donor Login &#8594; </Link>
             {/* <!-- Free Space --> */}
-            <p className="text-center mt-2">Are you a new user? <Link to="/register">Sign In</Link></p>
+            <p className="text-center mt-2">Are you a new user? <Link to="/bloodbanksignin">Sign In</Link></p>
         </div>
     </div>
     <Toaster position="top-center" expand={false} richColors   />

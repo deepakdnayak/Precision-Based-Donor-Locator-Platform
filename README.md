@@ -1,8 +1,9 @@
-# React + Vite
+# Blood Donor Locator App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This MERN application focuses on arranging blood to a needy patient as quickly as possible through a registered blood bank or from a blood donor.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Team Members
+- [Deepak Nayak](https://github.com/deepakdnayak)
+- [Shamanth Shetty](https://github.com/shamanthshetty99)
+- [Praveena Gunaga](https://github.com/Praveena2004-Gunaga)
+- [Anusha Pandit](https://github.com/Anusha-Pandit)

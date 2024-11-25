@@ -27,7 +27,7 @@ const NHome = () => {
                 <Link to="/findBlood" className="btn btn-danger btn-lg me-3 mt-2">
                   Search Blood
                 </Link>
-                <Link to="/login" className="btn btn-dark btn-lg mt-2">
+                <Link to="/donorlogin" className="btn btn-dark btn-lg mt-2">
                   Be a donor
                 </Link>
               </div>
@@ -71,8 +71,9 @@ const NHome = () => {
               </div>
               <h5 className="fw-bold">Who We Are</h5>
               <p className="text-muted">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              We are a dedicated platform connecting those
+              in need of blood with eligible and ready donors,
+              streamlining the life-saving donation process.
               </p>
             </div>
           </div>
@@ -88,8 +89,9 @@ const NHome = () => {
               </div>
               <h5 className="fw-bold">Mission</h5>
               <p className="text-muted">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              Our mission is to save lives by enabling quick and 
+              reliable access to blood donors through advanced 
+              technology and community support.
               </p>
             </div>
           </div>
@@ -105,8 +107,9 @@ const NHome = () => {
               </div>
               <h5 className="fw-bold">Our Goal</h5>
               <p className="text-muted">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              We aim to build a comprehensive and accessible donor 
+              network, ensuring timely availability of blood for 
+              everyone in need.
               </p>
             </div>
           </div>
@@ -128,8 +131,8 @@ const NHome = () => {
               </div>
               <h2 className="fw-bold">Blood Banks</h2>
               <p className="text-muted">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              Discover our extensive network of blood banks committed 
+              to ensuring a steady and reliable supply for those in need.
               </p>
             </div>
           </div>
@@ -140,8 +143,8 @@ const NHome = () => {
               </div>
               <h2 className="fw-bold">Donors</h2>
               <p className="text-muted">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              Join our growing community of compassionate donors ready 
+              to make a difference, one life at a time.
               </p>
             </div>
           </div>
