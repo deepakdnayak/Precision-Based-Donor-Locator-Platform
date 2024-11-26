@@ -48,11 +48,11 @@ const NBLogin = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
                     <input type="email" className="form-control border-1 border-secondary-subtle"  id="B_Email" name="B_Email" value={credentials.B_Email} onChange={onChange}  placeholder="name@example.com" required/>
-                    <label for="floatingInput">Enter Email Address</label>
+                    <label htmlFor="floatingInput">Enter Email Address</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input type="password" className="form-control border-1 border-secondary-subtle"  id="B_Password" name="B_Password" value={credentials.B_Password} onChange={onChange} placeholder="Password" minlength="5" required/>
-                    <label for="floatingPassword">Enter Password</label>
+                    <input type="password" className="form-control border-1 border-secondary-subtle"  id="B_Password" name="B_Password" value={credentials.B_Password} onChange={onChange} placeholder="Password" minLength="5" required/>
+                    <label htmlFor="floatingPassword">Enter Password</label>
                 </div>
                 <button type="submit" className="btn btn-danger w-100">LOGIN</button>
             </form>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const mongooURL = "mongodb://localhost:27017/BloodBank"
+const mongooURL = "mongodb+srv://deepakdnayak2004:gxbW5A3iMTxfciNd@deepakcluster.ca3js.mongodb.net/BloodBank?retryWrites=true&w=majority&appName=DeepakCluster"
 
 const connectToMongo = async() => {
     try {

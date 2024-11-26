@@ -51,15 +51,15 @@ const NDRegister = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
                     <input type="email" className="form-control border-1 border-secondary-subtle" id="D_Email" name="D_Email" value={credentials.D_Email} onChange={onChange} placeholder="name@example.com" required/>
-                    <label for="D_Email">Enter Email address</label>
+                    <label htmlFor="D_Email">Enter Email address</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input type="password" className="form-control border-1 border-secondary-subtle" id="D_Password" name="D_Password" value={credentials.D_Password} onChange={onChange} placeholder="Password" minlength="5" required/>
-                    <label for="D_Password">Enter Password</label>
+                    <input type="password" className="form-control border-1 border-secondary-subtle" id="D_Password" name="D_Password" value={credentials.D_Password} onChange={onChange} placeholder="Password" minLength="5" required/>
+                    <label htmlFor="D_Password">Enter Password</label>
                 </div>
                 <div className="form-floating mb-4">
-                    <input type="password" className="form-control border-1 border-secondary-subtle" id="D_Password_C" name="D_Password_C" value={credentials.D_Password_C} onChange={onChange} placeholder="Password" minlength="5" required/>
-                    <label for="D_Password_C">Confirm Password</label>
+                    <input type="password" className="form-control border-1 border-secondary-subtle" id="D_Password_C" name="D_Password_C" value={credentials.D_Password_C} onChange={onChange} placeholder="Password" minLength="5" required/>
+                    <label htmlFor="D_Password_C">Confirm Password</label>
                 </div>
                 <button type="submit" className="btn btn-danger w-100">SIGN IN</button>
             </form>

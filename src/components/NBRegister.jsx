@@ -50,15 +50,15 @@ const NBRegister = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
                     <input type="email" className="form-control border-1 border-secondary-subtle" id="B_Email" name="B_Email" value={credentials.B_Email} onChange={onChange} placeholder="name@example.com" required/>
-                    <label for="floatingInput">Enter Email address</label>
+                    <label htmlFor="floatingInput">Enter Email address</label>
                 </div>
                 <div className="form-floating mb-3">
                     <input type="password" className="form-control border-1 border-secondary-subtle" id="B_Password" name="B_Password" value={credentials.B_Password} onChange={onChange} minLength={5} placeholder="Password" required/>
-                    <label for="floatingPassword">Enter Password</label>
+                    <label htmlFor="floatingPassword">Enter Password</label>
                 </div>
                 <div className="form-floating mb-4">
-                    <input type="password" className="form-control border-1 border-secondary-subtle" id="B_Password_C" name="B_Password_C" value={credentials.B_Password_C} onChange={onChange}  placeholder="Password" minlength="5" required/>
-                    <label for="floatingPassword">Confirm Password</label>
+                    <input type="password" className="form-control border-1 border-secondary-subtle" id="B_Password_C" name="B_Password_C" value={credentials.B_Password_C} onChange={onChange}  placeholder="Password" minLength="5" required/>
+                    <label htmlFor="floatingPassword">Confirm Password</label>
                 </div>
                 <button type="submit" className="btn btn-danger w-100">SIGN IN</button>
             </form>
