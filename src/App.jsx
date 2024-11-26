@@ -10,6 +10,7 @@ import NHome from './components/NHome';
 import NDRegister from './components/NDRegister';
 import NBRegister from './components/NBRegister';
 import NBLogin from './components/NBLogin';
+import Test from './components/Test';
 
 const App = ()=> {
   return (
@@ -22,7 +23,7 @@ const App = ()=> {
           <Route exact path="/donorProfile" element={<DonorProfile />} />
           <Route exact path="/bloodBankInventory" element={<BloodBankInventory />} />
           <Route exact path="/findblood" element={<FindBlood/>} />
-          <Route exact path="/test" element={<NHome/>} />
+          <Route exact path="/test" element={<Test/>} />
           <Route exact path="/donorlogin" element={<NDLogin/>} />
           <Route exact path="/donorsignin" element={<NDRegister/>} />
           <Route exact path="/bloodbanklogin" element={<NBLogin/>} />
