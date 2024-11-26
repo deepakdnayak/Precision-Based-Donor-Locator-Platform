@@ -10,6 +10,9 @@ const FindBlood = () => {
 
   const handleSearch = async () => {
     const bloodGroup = document.getElementById('userSelection').value;
+    const bloodQuantity = document.getElementById('bloodQuantity').innerHTML;
+
+    console.log("output"+bloodGroup+" "+bloodQuantity)
 
     const matchD = await searchMatchDonor(bloodGroup);
     console.log('Matched donors:', matchD); 
@@ -33,9 +36,9 @@ const FindBlood = () => {
 
       <form className="row g-3 mt-3">
 
-        <div className="col-md">
-          <label htmlFor="inputEmail4" className="form-label"> Blood Group </label>
-          <select className="form-select" aria-label="Default select example" id="userSelection">
+        <div className="col-md-6">
+          <label htmlFor="userSelection" className="form-label fs-4"> Blood Group </label>
+          <select className="form-select" aria-label="Default select example" id="userSelection" required>
             <option>Select Blood Group</option>
             <option value="Aplus">A+</option>
             <option value="Amin">A-</option>
@@ -47,15 +50,19 @@ const FindBlood = () => {
             <option value="ABmin">AB-</option>
           </select>
         </div>
+        <div className="col-md-6">
+          <label htmlFor="bloodQuantity" className="form-label fs-4"> Blood Quantity </label>
+          <input type="number" class="form-control" placeholder="Quantity in ml" id="bloodQuantity" aria-label="Quantity in ml  " min="1"/>
+        </div>
 
         <div className="col-md-12 d-flex justify-content-end">
-          <button onClick={handleSearch} type="button" className="btn btn-danger">Search</button>
+          <button onClick={handleSearch} type="button" className="btn btn-danger fs-4">Search</button>
         </div>
 
       </form>
 
       <div className="row">
-        <h4>Available Blood Banks : </h4>
+        <h4>{matchingBloodBank.length===0?"":"Available Blood Banks : "}</h4>
       </div>
       <div className="row"> 
         {matchingBloodBank.map((bloodBank)=> (
@@ -73,7 +80,7 @@ const FindBlood = () => {
       </div>
 
       <div className="row mt-5">
-        <h4>Donors with Blood Group Match : </h4>
+        <h4>{matchingDonors.length===0?"":"Donors with Blood Group Match : "}</h4>
       </div>
       <div className="row">
         {matchingDonors.map((donor) => (
