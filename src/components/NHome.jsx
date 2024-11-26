@@ -51,7 +51,7 @@ const NHome = () => {
       </div>
 
       {/* New Section */}
-      <div className="container my-5" style={{paddingTop: '100px'}}>
+      <div className="container my-5" style={{paddingTop: '100px'}} id="siteAbout">
         <div className="text-center mb-4">
           <h1 className="text-uppercase text-danger fw-bold mb-4">
             A Short Brief About Us
@@ -152,7 +152,7 @@ const NHome = () => {
       </div>
       
       {/* Footer */}
-      <footer className="py-5 bg-danger-subtle">
+      <footer className="py-5 bg-danger-subtle" id="appfooter">
       <div className="container">
         <div className="row text-center text-md-start">
           {/* About Section */}
@@ -225,7 +225,6 @@ const NHome = () => {
         </div>
       </div>
     </footer>
-      
     </div>
   );
 };

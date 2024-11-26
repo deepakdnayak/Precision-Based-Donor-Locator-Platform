@@ -76,9 +76,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <a href="#siteAbout" className="nav-link">
                 About
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/services">
@@ -86,9 +86,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contact">
+              <a href="/#appfooter" className="nav-link" >
                 Contact
-              </Link>
+              </a>
             </li>
           </ul>
           {(!bloodBankAuthToken && !donorAuthToken) ? (
