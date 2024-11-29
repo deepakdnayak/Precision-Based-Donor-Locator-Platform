@@ -117,7 +117,7 @@ const NHome = () => {
       </div>
 
       {/* Third Section */}
-      <div className="container my-5" style={{paddingTop: '100px', paddingBottom: '100px'}}>
+      <div className="container my-5" style={{paddingTop: '100px', paddingBottom: '100px'}} id="siteServices">
         <div className="text-center mb-4">
           <h1 className="text-uppercase text-black fw-bold mb-4">
             Our Connections
