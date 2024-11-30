@@ -102,7 +102,7 @@ export const DonorProvider = ({ children }) => {
   const getDonorProfileDetails = useCallback(async () => {
     const token = donorAuthToken || localStorage.getItem('donorAuthToken') || Cookies.get("donorAuthToken");
     if (!token) {
-      console.error("No auth token found, cannot fetch donor details");
+      //console.error("No auth token found, cannot fetch donor details");
       return;
     }
 

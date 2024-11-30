@@ -107,7 +107,7 @@ export const BloodBankProvider = ({ children }) => {
       Cookies.get("bloodBankAuthToken");
 
     if (!token) {
-      console.error("No auth token found, cannot fetch bloodBank details");
+      //console.error("No auth token found, cannot fetch bloodBank details");
       return;
     }
 
