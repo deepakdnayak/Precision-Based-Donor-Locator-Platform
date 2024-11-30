@@ -4,21 +4,79 @@ import { useDonor } from "../context/DonorContext";
 const DonorProfile = () => {
 
     const { donorDetails, updateDonorProfile } = useDonor();
-    const [editedProfile, setEditedProfile] = useState(donorDetails); 
+    const [editedProfile, setEditedProfile] = useState(donorDetails);
+    const [coordinates, setCoordinates] = useState({ latitude: '', longitude: '' }); // New state for coordinates
+    const [locationName, setLocationName] = useState("");
 
     useEffect(() => {
         setEditedProfile(donorDetails); // Sync local state with donorDetails when they change
+        if (donorDetails.D_LocationName) setLocationName(donorDetails.D_LocationName);
     }, [donorDetails]);
 
     const onChange = (e) => {
         const { name, value } = e.target;
         setEditedProfile({ ...editedProfile, [name]: value });
     };
-    
 
     const handleSave = () => {
-        updateDonorProfile(editedProfile._id, editedProfile); 
+        // Save the updated profile, coordinates, and location name
+        const updatedProfile = {
+            ...editedProfile,
+            coordinates,
+            D_LocationName: locationName,
+        };
+        updateDonorProfile(editedProfile._id, updatedProfile);
     };
+
+    const recordnLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setCoordinates({ latitude, longitude }); // Update state with fetched coordinates
+                },
+                (error) => {
+                    console.error("Error fetching location:", error);
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    };
+
+    const fetchLocationName = async (latitude, longitude) => {
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+          );
+          const data = await response.json();
+          if (data && data.display_name) {
+            return data.display_name;
+          }
+          return "Unknown Location";
+        } catch (error) {
+          console.error("Error fetching location name:", error);
+          return "Unknown Location";
+        }
+      };
+    
+      const recordLocation = async () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const { latitude, longitude } = position.coords;
+              setCoordinates({ latitude, longitude });
+              const location = await fetchLocationName(latitude, longitude);
+              setLocationName(location);
+            },
+            (error) => {
+              console.error("Error fetching location:", error);
+            }
+          );
+        } else {
+          alert("Geolocation is not supported by your browser.");
+        }
+      };
 
     const states = [
         { id: 1, name: "Andhra Pradesh" },
@@ -49,9 +107,9 @@ const DonorProfile = () => {
         { id: 26, name: "Uttar Pradesh" },
         { id: 27, name: "Uttarakhand" },
         { id: 28, name: "West Bengal" }
-      ];
+    ];
 
-      function formatBloodGroup(bloodGroup) {
+    function formatBloodGroup(bloodGroup) {
         if (bloodGroup === "Aplus") return "A+";
         if (bloodGroup === "Aminus") return "A-";
         if (bloodGroup === "Bplus") return "B+";
@@ -60,10 +118,9 @@ const DonorProfile = () => {
         if (bloodGroup === "Ominus") return "O-";
         if (bloodGroup === "ABplus") return "AB+";
         if (bloodGroup === "ABminus") return "AB-";
-        
+
         return bloodGroup;
-      }
-      
+    }
 
     return (
         <div>
@@ -82,8 +139,7 @@ const DonorProfile = () => {
                                 <form>
                                     <div className="row">
                                         <div className="col-12 col-lg-6">
-
-                                            <div className="mb-3">
+                                        <div className="mb-3">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">First Name : </label>
                                                 <input
                                                     type="text"
@@ -150,11 +206,20 @@ const DonorProfile = () => {
                                                 </select>
                                             </div>
 
-
+                                            <div className="mb-3">
+                                                <label htmlFor="location" className="form-label">Location : </label>
+                                            <input
+                                                type="text"
+                                                className="form-control me-2"
+                                                id="location"
+                                                name="location"
+                                                readOnly
+                                                value={`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`}
+                                            />
+                                            </div>
                                         </div>
                                         <div className="col-12 col-lg-6">
-
-                                            <div className="mb-3">
+                                        <div className="mb-3">
                                                 <label htmlFor="exampleInputEmail1" className="form-label">Last Name : </label>
                                                 <input
                                                     type="text"
@@ -229,6 +294,15 @@ const DonorProfile = () => {
                                                 />
                                             </div>
 
+                                            {/* Record Location */}
+                                            <div className="mb-3">
+                                                <label htmlFor="location" className="form-label">Location Coordinates:</label>
+                                                <div className="d-flex align-items-center">
+
+                                                <button type="button" className="btn btn-primary" onClick={recordLocation}>Record Location</button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </form>
@@ -251,21 +325,21 @@ const DonorProfile = () => {
                     <div className="col-md-4 d-flex align-items-stretch mb-3 mb-md-0">
                         <div className="card w-100">
                             <div className="card-body text-center">
-                                <img
+                            <img
                                     
                                     src={donorDetails.D_Gender=="Male"?'https://bootdey.com/img/Content/avatar/avatar7.png':'https://static.vecteezy.com/system/resources/previews/004/899/680/non_2x/beautiful-blonde-woman-with-makeup-avatar-for-a-beauty-salon-illustration-in-the-cartoon-style-vector.jpg'}
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle mb-3 mt-4"
                                 />
                                 <h5 className="card-title mt-3"><span> {donorDetails.D_Fname} </span><span> {donorDetails.D_Lname} </span></h5>
+                            
                             </div>
                         </div>
                     </div>
                     <div className="col-md-8 d-flex align-items-stretch">
                         <div className="card w-100">
                             <ul className="list-group list-group-flush">
-
-                                <li className="list-group-item py-3">
+                            <li className="list-group-item py-3">
                                     <div className="row">
                                         <div className="col"><strong>Age : </strong><span>{donorDetails.D_Age}</span></div>
                                         <div className="col"><strong>Gender : </strong><span>{donorDetails.D_Gender}</span></div>
@@ -289,6 +363,9 @@ const DonorProfile = () => {
                                 <li className="list-group-item py-3">
                                     <strong>Contact : </strong><span>{donorDetails.D_Contact}</span>
                                 </li>
+                                <li className="list-group-item py-3">
+                                    <strong>Contact : </strong><span>{donorDetails.D_LocationName || "Not Recorded"}</span>
+                                </li>
                             </ul>
                             <div className="card-body py-4">
                                 <div className="row">
@@ -306,4 +383,4 @@ const DonorProfile = () => {
     )
 }
 
-export default DonorProfile
+export default DonorProfile;
