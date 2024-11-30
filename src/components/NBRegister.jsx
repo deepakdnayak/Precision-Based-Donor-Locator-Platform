@@ -26,8 +26,6 @@ const NBRegister = () => {
             B_Password: credentials.B_Password
         });
 
-        console.log("authToken = "+bloodBankAuthToken);
-
         if (!result.success) {
             toast.error('Login Failed!! Please try with correct credentials.')
         }
@@ -36,7 +34,6 @@ const NBRegister = () => {
     // Use useEffect to monitor changes in bloodBankAuthToken
     useEffect(() => {
         if (bloodBankAuthToken) {
-            console.log("authToken = " + bloodBankAuthToken);
             navigate("/bloodBankProfile"); // Redirect when authToken is set
         }
     }, [bloodBankAuthToken, navigate]); // Runs only when bloodBankAuthToken changes

@@ -12,20 +12,17 @@ const FindBlood = () => {
     const bloodGroup = document.getElementById('userSelection').value;
     const bloodQuantity = document.getElementById('bloodQuantity').innerHTML;
 
-    console.log("output"+bloodGroup+" "+bloodQuantity)
 
     const matchD = await searchMatchDonor(bloodGroup);
-    console.log('Matched donors:', matchD); 
     setMatchingDonors(matchD); 
 
     const matchBB = await searchBloodBanks(bloodGroup,1);
-    console.log('Matched BloodBanks: ',matchBB);
     setMatchingBloodBank(matchBB);
   };
 
-  useEffect(() => {
-    console.log('Matching donors:', matchingDonors);
-  }, [matchingDonors]); 
+  // useEffect(() => {
+  //   console.log('Matching donors:', matchingDonors);
+  // }, [matchingDonors]); 
 
   return (
     <div className="container" style={{ marginTop: "80px" }}>

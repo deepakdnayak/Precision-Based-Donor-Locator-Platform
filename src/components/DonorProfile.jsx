@@ -4,13 +4,46 @@ import { useDonor } from "../context/DonorContext";
 const DonorProfile = () => {
 
     const { donorDetails, updateDonorProfile } = useDonor();
-    const [editedProfile, setEditedProfile] = useState(donorDetails);
-    const [coordinates, setCoordinates] = useState({ latitude: '', longitude: '' }); // New state for coordinates
-    const [locationName, setLocationName] = useState("");
+    const [editedProfile, setEditedProfile] = useState({
+        D_Fname: "",
+        D_Lname: "",
+        D_Age: "",
+        D_Gender: "",
+        D_BloodGroup: "",
+        D_Email: "",
+        D_AdharNo: "",
+        D_Address: "",
+        D_City: "",
+        D_State: "",
+        D_Contact: "",
+        D_Latitude: null,
+        D_Longitude: null,
+        ...donorDetails, // Overwrite with actual details if available
+    });
+    const [coordinates, setCoordinates] = useState({
+        latitude: null,
+        longitude: null
+    }); // New state for coordinates
+    const [location, setLocation] = useState(null); // New state for coordinates
 
     useEffect(() => {
-        setEditedProfile(donorDetails); // Sync local state with donorDetails when they change
-        if (donorDetails.D_LocationName) setLocationName(donorDetails.D_LocationName);
+        if (coordinates.latitude && coordinates.longitude) {
+            (async () => {
+                const locationName = await getLocationName(coordinates.latitude, coordinates.longitude);
+                setLocation(locationName);
+            })();
+        }
+    }, [coordinates]);  
+
+    useEffect(() => {
+       setEditedProfile((prev) => ({
+            ...prev, // Preserve existing values to avoid overwriting
+            ...donorDetails, // Update with new donor details
+        }));
+        setCoordinates({
+            latitude: donorDetails.D_Latitude,
+            longitude: donorDetails.D_Longitude
+        });
     }, [donorDetails]);
 
     const onChange = (e) => {
@@ -19,20 +52,29 @@ const DonorProfile = () => {
     };
 
     const handleSave = () => {
-        // Save the updated profile, coordinates, and location name
-        const updatedProfile = {
-            ...editedProfile,
-            coordinates,
-            D_LocationName: locationName,
+        // Save the updated profile and coordinates
+        const updatedProfile = { 
+            ...editedProfile, 
+            D_Latitude: coordinates.latitude, 
+            D_Longitude: coordinates.longitude 
         };
         updateDonorProfile(editedProfile._id, updatedProfile);
     };
 
-    const recordnLocation = () => {
+    const recordLocation = () => {        
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
+                    if (!position.coords.latitude || !position.coords.longitude) {
+                        console.error("Invalid geolocation data received.");
+                        return;
+                    }
                     const { latitude, longitude } = position.coords;
+                    setEditedProfile({ 
+                        ...editedProfile, 
+                        D_Latitude: latitude, 
+                        D_Longitude: longitude 
+                    });
                     setCoordinates({ latitude, longitude }); // Update state with fetched coordinates
                 },
                 (error) => {
@@ -44,39 +86,25 @@ const DonorProfile = () => {
         }
     };
 
-    const fetchLocationName = async (latitude, longitude) => {
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-          );
-          const data = await response.json();
-          if (data && data.display_name) {
-            return data.display_name;
-          }
-          return "Unknown Location";
-        } catch (error) {
-          console.error("Error fetching location name:", error);
-          return "Unknown Location";
+    const getLocationName = async (lat, lon)=> {
+        if (!lat || !lon) {
+            throw new Error("Invalid coordinates provided.");
         }
-      };
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
     
-      const recordLocation = async () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              const { latitude, longitude } = position.coords;
-              setCoordinates({ latitude, longitude });
-              const location = await fetchLocationName(latitude, longitude);
-              setLocationName(location);
-            },
-            (error) => {
-              console.error("Error fetching location:", error);
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-          );
-        } else {
-          alert("Geolocation is not supported by your browser.");
+            const data = await response.json();
+    
+            return data.display_name || "Unknown location";
+        } catch (error) {
+            console.error("Error retrieving location name:", error.message);
+            return null;
         }
-      };
+    }
 
     const states = [
         { id: 1, name: "Andhra Pradesh" },
@@ -206,17 +234,7 @@ const DonorProfile = () => {
                                                 </select>
                                             </div>
 
-                                            <div className="mb-3">
-                                                <label htmlFor="location" className="form-label">Location : </label>
-                                            <input
-                                                type="text"
-                                                className="form-control me-2"
-                                                id="location"
-                                                name="location"
-                                                readOnly
-                                                value={`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`}
-                                            />
-                                            </div>
+                                            
                                         </div>
                                         <div className="col-12 col-lg-6">
                                         <div className="mb-3">
@@ -293,16 +311,30 @@ const DonorProfile = () => {
                                                     value={editedProfile.D_Contact || ''}
                                                 />
                                             </div>
+                                            
+                                            
 
-                                            {/* Record Location */}
-                                            <div className="mb-3">
-                                                <label htmlFor="location" className="form-label">Location Coordinates:</label>
-                                                <div className="d-flex align-items-center">
+                                        </div>
 
-                                                <button type="button" className="btn btn-primary" onClick={recordLocation}>Record Location</button>
-                                                </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <label htmlFor="location" className="form-label">Location Coordinates:</label>
+                                            <div className="input-group mb-3">
+                                                
+                                                <input 
+                                                    type="text" 
+                                                    className="form-control" 
+                                                    id="location"
+                                                    name="location"
+                                                    readOnly
+                                                    value={location || ""} 
+                                                    aria-label="Recipient's username" 
+                                                    aria-describedby="button-addon2"
+                                                />
+                                                <button className="btn btn-primary" type="button" id="button-addon2" onClick={recordLocation}>Record</button>
                                             </div>
-
                                         </div>
                                     </div>
                                 </form>
@@ -347,8 +379,8 @@ const DonorProfile = () => {
                                 </li>
                                 <li className="list-group-item py-3">
                                     <div className="row">
-                                    <div className="col"><strong>Blood Group: </strong><span>{formatBloodGroup(donorDetails.D_BloodGroup)}</span></div>
-                                        <div className="col"><strong>Last Donation Date : </strong><span>{donorDetails.D_LastDonationDate}</span></div>
+                                        <div className="col"><strong>Blood Group: </strong><span>{formatBloodGroup(donorDetails.D_BloodGroup)}</span></div>
+                                        {/* <div className="col"><strong>Last Donation Date : </strong><span>{donorDetails.D_LastDonationDate}</span></div> */}
                                     </div>
                                 </li>
                                 <li className="list-group-item py-3">
@@ -364,7 +396,7 @@ const DonorProfile = () => {
                                     <strong>Contact : </strong><span>{donorDetails.D_Contact}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Contact : </strong><span>{donorDetails.D_LocationName || "Not Recorded"}</span>
+                                    <strong>Location : </strong><span>{location || "Not Saved Yet"}</span>
                                 </li>
                             </ul>
                             <div className="card-body py-4">

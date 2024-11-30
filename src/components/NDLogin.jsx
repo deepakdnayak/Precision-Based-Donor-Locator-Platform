@@ -23,8 +23,6 @@ const NDLogin = () => {
       D_Password: credentials.D_Password
     });
 
-    console.log("Success = " + result.success);
-    console.log("authToken = " + donorAuthToken);
 
     if (!result.success) {
       toast.error(result.message || "Login failed.")
@@ -34,7 +32,6 @@ const NDLogin = () => {
   // Use useEffect to monitor changes in bloodBankAuthToken
   useEffect(() => {
     if (donorAuthToken) {
-      console.log("authToken = " + donorAuthToken);
       navigate("/donorProfile"); // Redirect when authToken is set
     }
   }, [donorAuthToken, navigate]);

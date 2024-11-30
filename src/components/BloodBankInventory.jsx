@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useBloodBank } from "../context/BloodBankContext";
+import { Toaster, toast } from 'sonner'
 
 const BloodBankInventory = () => {
 
@@ -8,7 +9,7 @@ const BloodBankInventory = () => {
 
     useEffect(()=>{
         if(bloodBankInventory===null){
-            console.log("Please login");
+            toast.error("Please login");
         }
     },[bloodBankInventory])
 
@@ -70,6 +71,7 @@ const BloodBankInventory = () => {
                     </tbody>
                 </table>
             </div>
+            <Toaster position="top-center" expand={false} richColors   />
         </div>
     )
 }

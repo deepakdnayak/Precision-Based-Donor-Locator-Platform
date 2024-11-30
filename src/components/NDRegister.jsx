@@ -27,8 +27,6 @@ const NDRegister = () => {
             D_Password: credentials.D_Password
         });
 
-        console.log("authToken = "+donorAuthToken);
-
         if (!result.success) {
             toast.error("Registration failed");
         }
@@ -37,7 +35,6 @@ const NDRegister = () => {
     // Use useEffect to monitor changes in bloodBankAuthToken
     useEffect(() => {
         if (donorAuthToken) {
-            console.log("authToken = " + donorAuthToken);
             navigate("/donorProfile"); // Redirect when authToken is set
         }
     }, [donorAuthToken, navigate]); // Runs only when bloodBankAuthToken changes 

@@ -12,7 +12,7 @@ const BloodBankContext = createContext();
 
 // Provider component
 export const BloodBankProvider = ({ children }) => {
-  const host = "https://backend-one-zeta-57.vercel.app";
+  const host = "http://localhost:5000";
   const [bloodBankAuthToken, setBloodBankAuthToken] = useState(
     localStorage.getItem("bloodBankAuthToken") ||
       Cookies.get("bloodBankAuthToken") ||
@@ -63,11 +63,9 @@ export const BloodBankProvider = ({ children }) => {
 
       if (json.success) {
         saveAuthToken(json.authToken);
-        console.log("Register Token = " + json.authToken);
         setTimeout(() => {
           getBloodBankProfileDetails();
         }, 5000);
-        console.log("Register Token = " + json.authToken);
         return { success: true };
       } else {
         return { success: false, message: json.message };
@@ -109,7 +107,7 @@ export const BloodBankProvider = ({ children }) => {
       Cookies.get("bloodBankAuthToken");
 
     if (!token) {
-      console.error("No auth token found, cannot fetch bloodBank details");
+      //console.error("No auth token found, cannot fetch bloodBank details");
       return;
     }
 
@@ -131,7 +129,6 @@ export const BloodBankProvider = ({ children }) => {
 
   useEffect(() => {
     getBloodBankProfileDetails();
-    console.log("PROFILE FETCHED");
   }, [bloodBankAuthToken, getBloodBankProfileDetails]);
 
   const updateBloodBankProfile = async (id, credentials) => {
@@ -150,7 +147,6 @@ export const BloodBankProvider = ({ children }) => {
       const result = await response.json();
       if (result.success) {
         setBloodBankDetails(credentials);
-        console.log("Blood Bank Profile updated successfully");
       } else {
         console.error("Failed to update Blood bank Profile:", result.message);
       }
@@ -176,7 +172,6 @@ export const BloodBankProvider = ({ children }) => {
   };
 
   const searchBloodBanks = async (bloodGroup, quantity) => {
-    console.log(bloodGroup, quantity);
     try {
         const response = await fetch(`${host}/api/searchBlood/searchBloodBanks`, {
             method: "POST",
@@ -229,7 +224,6 @@ export const BloodBankProvider = ({ children }) => {
     localStorage.removeItem("bloodBankAuthToken");
     //localStorage.removeItem("donorAuthToken");
     Cookies.remove("bloodBankAuthToken");
-    console.log("bloodBankAuthToken = "+bloodBankAuthToken)
   };
 
   // ///////

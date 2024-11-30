@@ -12,7 +12,7 @@ const DonorContext = createContext();
 
 // Provider component
 export const DonorProvider = ({ children }) => {
-  const host = "https://backend-one-zeta-57.vercel.app";
+  const host = "http://localhost:5000";
   const [donorAuthToken, setDonorAuthToken] = useState(
     localStorage.getItem("setdonorAuthToken") ||
       Cookies.get("setdonorAuthToken") ||
@@ -59,11 +59,8 @@ export const DonorProvider = ({ children }) => {
 
       const json = await responce.json();
 
-      console.log(json.authToken);
-
       if (json.success) {
         saveAuthToken(json.authToken);
-        console.log("### AT = " + donorAuthToken);
         setTimeout(() => {
           getDonorProfileDetails();
         }, 5000);
@@ -72,7 +69,7 @@ export const DonorProvider = ({ children }) => {
         return { success: false, message: json.message };
       }
     } catch (error) {
-      console.log("Error during registration: ", error);
+      console.error("Error during registration: ", error);
       return { success: false };
     }
   };
@@ -92,7 +89,6 @@ export const DonorProvider = ({ children }) => {
 
       if (json.success) {
         saveAuthToken(json.authToken);
-        console.log("### AT = " + donorAuthToken);
         return { success: true };
       } else {
         return { success: false, message: json.message };
@@ -106,7 +102,7 @@ export const DonorProvider = ({ children }) => {
   const getDonorProfileDetails = useCallback(async () => {
     const token = donorAuthToken || localStorage.getItem('donorAuthToken') || Cookies.get("donorAuthToken");
     if (!token) {
-      console.error("No auth token found, cannot fetch donor details");
+      //console.error("No auth token found, cannot fetch donor details");
       return;
     }
 
@@ -127,7 +123,6 @@ export const DonorProvider = ({ children }) => {
 
   useEffect(() => {
       getDonorProfileDetails();
-      console.log("PROFILE FETCHED");
   }, [donorAuthToken, getDonorProfileDetails]);
 
   const updateDonorProfile = async (id,credentials) =>{
@@ -143,11 +138,9 @@ export const DonorProvider = ({ children }) => {
         const result = await responce.json(); 
         if(result.success){
             setDonorDetails(credentials);
-            console.log(donorDetails);
-            console.log("Donor profile updated successfully");
         }
         else {
-            console.log("Failed to update donor profile",result.message);
+            console.error("Failed to update donor profile",result.message);
         }  
     } 
     catch (error) {
@@ -159,7 +152,6 @@ export const DonorProvider = ({ children }) => {
     setDonorAuthToken(null);
     localStorage.removeItem("donorAuthToken");
     Cookies.remove("donorAuthToken");
-    console.log('donorAuthToken = '+donorAuthToken)
   };
 
   // ///////
