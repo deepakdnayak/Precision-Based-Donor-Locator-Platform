@@ -12,7 +12,7 @@ const DonorContext = createContext();
 
 // Provider component
 export const DonorProvider = ({ children }) => {
-  const host = "https://backend-one-zeta-57.vercel.app";
+  const host = "http://localhost:5000";
   const [donorAuthToken, setDonorAuthToken] = useState(
     localStorage.getItem("setdonorAuthToken") ||
       Cookies.get("setdonorAuthToken") ||

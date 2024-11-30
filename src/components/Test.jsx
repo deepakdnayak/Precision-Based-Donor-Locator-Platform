@@ -5,7 +5,18 @@ const DonorProfile = () => {
 
     const { donorDetails, updateDonorProfile } = useDonor();
     const [editedProfile, setEditedProfile] = useState(donorDetails);
-    const [coordinates, setCoordinates] = useState({ latitude: '', longitude: '' }); // New state for coordinates
+    const [coordinates, setCoordinates] = useState({ latitude: null, longitude: null  }); // New state for coordinates
+    const [location, setLocation] = useState(null); // New state for coordinates
+
+    useEffect(() => {
+        if (coordinates.latitude && coordinates.longitude) {
+            (async () => {
+                const locationName = await getLocationName(coordinates.latitude, coordinates.longitude);
+                setLocation(locationName);
+            })();
+        }
+    }, [coordinates.latitude, coordinates.longitude]);
+    
 
     useEffect(() => {
         setEditedProfile(donorDetails); // Sync local state with donorDetails when they change
@@ -22,10 +33,14 @@ const DonorProfile = () => {
         updateDonorProfile(editedProfile._id, updatedProfile);
     };
 
-    const recordLocation = () => {
+    const recordLocation = () => {        
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
+                    if (!position.coords.latitude || !position.coords.longitude) {
+                        console.error("Invalid geolocation data received.");
+                        return;
+                    }
                     const { latitude, longitude } = position.coords;
                     setCoordinates({ latitude, longitude }); // Update state with fetched coordinates
                 },
@@ -37,6 +52,31 @@ const DonorProfile = () => {
             alert("Geolocation is not supported by your browser.");
         }
     };
+
+    const getLocationName = async (lat, lon)=> {
+        if (!lat || !lon) {
+            throw new Error("Invalid coordinates provided.");
+        }
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+    
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+    
+            // Extract address or display name
+            if (data && data.display_name) {
+                return data.display_name;
+            } else {
+                throw new Error("No location name found for these coordinates.");
+            }
+        } catch (error) {
+            console.error("Error retrieving location name:", error.message);
+            return null;
+        }
+    }
 
     const states = [
         { id: 1, name: "Andhra Pradesh" },
@@ -324,6 +364,9 @@ const DonorProfile = () => {
                                 </li>
                                 <li className="list-group-item py-3">
                                     <strong>Contact : </strong><span>{donorDetails.D_Contact}</span>
+                                </li>
+                                <li className="list-group-item py-3">
+                                    <strong>Location : </strong><span>{location || "Not Saved Yet"}</span>
                                 </li>
                             </ul>
                             <div className="card-body py-4">

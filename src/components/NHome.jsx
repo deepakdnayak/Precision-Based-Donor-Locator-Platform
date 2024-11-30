@@ -152,7 +152,7 @@ const NHome = () => {
       </div>
       
       {/* Footer */}
-      <footer className="py-5 bg-danger-subtle" id="appfooter">
+      <footer className="py-5 bg-secondary-subtle" id="appfooter">
       <div className="container">
         <div className="row text-center text-md-start">
           {/* About Section */}

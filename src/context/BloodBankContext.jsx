@@ -12,7 +12,7 @@ const BloodBankContext = createContext();
 
 // Provider component
 export const BloodBankProvider = ({ children }) => {
-  const host = "https://backend-one-zeta-57.vercel.app";
+  const host = "http://localhost:5000";
   const [bloodBankAuthToken, setBloodBankAuthToken] = useState(
     localStorage.getItem("bloodBankAuthToken") ||
       Cookies.get("bloodBankAuthToken") ||
