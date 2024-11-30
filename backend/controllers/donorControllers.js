@@ -36,7 +36,9 @@ const createDonor = async(req,res)=> {
             D_City:   "default",
             D_State:   "default",
             D_Contact:   0,
-            D_LastDonationDate:   new Date("2000-01-01T00:00:00Z")
+            D_LastDonationDate:   new Date("2000-01-01T00:00:00Z"),
+            D_Latitude: null,
+            D_Longitude: null
         });
 
         const data = {
@@ -105,7 +107,7 @@ const getDonor = async (req,res)=> {
 
 const updateDonor = async(req,res)=> {
 
-    const {D_Fname,D_Lname,D_Age,D_Gender,D_AdharNo,D_BloodGroup,D_Address,D_City,D_State,D_Contact,D_LastDonationDate} = req.body;
+    const {D_Fname,D_Lname,D_Age,D_Gender,D_AdharNo,D_BloodGroup,D_Address,D_City,D_State,D_Contact,D_LastDonationDate,D_Latitude,D_Longitude} = req.body;
 
     try {
 
@@ -126,6 +128,8 @@ const updateDonor = async(req,res)=> {
         if (D_State) { newDonor.D_State = D_State }
         if (D_Contact) { newDonor.D_Contact = D_Contact }
         if (D_LastDonationDate) { newDonor.D_LastDonationDate = D_LastDonationDate }
+        if (D_Latitude) { newDonor.D_Latitude = D_Latitude }
+        if (D_Longitude) { newDonor.D_Longitude = D_Longitude }
 
         // find the donor to be updated and update it
         let donor = await Donor.findById(req.params.id);

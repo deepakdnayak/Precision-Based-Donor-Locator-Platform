@@ -54,6 +54,12 @@ const DonorSchema = new Schema({
         type: Date,
         required: true
     },
+    D_Latitude: {
+        type: Number
+    },
+    D_Longitude: {
+        type: Number
+    }
 })
 
 module.exports = mongoose.model("Donor", DonorSchema)
