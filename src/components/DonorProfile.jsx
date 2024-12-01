@@ -36,15 +36,17 @@ const DonorProfile = () => {
     }, [coordinates]);  
 
     useEffect(() => {
-       setEditedProfile((prev) => ({
-            ...prev, // Preserve existing values to avoid overwriting
-            ...donorDetails, // Update with new donor details
-        }));
-        setCoordinates({
-            latitude: donorDetails.D_Latitude,
-            longitude: donorDetails.D_Longitude
-        });
+        if (donorDetails?.location?.coordinates) {
+            setCoordinates({
+                latitude: donorDetails.location.coordinates[1] || null,
+                longitude: donorDetails.location.coordinates[0] || null
+            });
+            console.log(donorDetails.location.coordinates[1] || null);
+        } else {
+            console.warn("Location or coordinates are missing in donorDetails.");
+        }
     }, [donorDetails]);
+    
 
     const onChange = (e) => {
         const { name, value } = e.target;
