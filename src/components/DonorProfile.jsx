@@ -5,6 +5,7 @@ const DonorProfile = () => {
 
     const { donorDetails, updateDonorProfile } = useDonor();
     const [editedProfile, setEditedProfile] = useState({
+        _id: null,
         D_Fname: "",
         D_Lname: "",
         D_Age: "",
@@ -36,6 +37,13 @@ const DonorProfile = () => {
     }, [coordinates]);  
 
     useEffect(() => {
+        setEditedProfile((prev) => ({
+          ...prev,
+          ...donorDetails, // Overwrite with the latest donorDetails
+        }));
+      }, [donorDetails]);      
+
+    useEffect(() => {
         if (donorDetails?.location?.coordinates) {
             setCoordinates({
                 latitude: donorDetails.location.coordinates[1] || null,
@@ -54,14 +62,27 @@ const DonorProfile = () => {
     };
 
     const handleSave = () => {
+        if (!editedProfile._id) {
+            console.error("Cannot update profile: Missing ID.");
+            return;
+          }
         // Save the updated profile and coordinates
         const updatedProfile = { 
             ...editedProfile, 
             D_Latitude: coordinates.latitude, 
             D_Longitude: coordinates.longitude 
         };
+        console.log("Profile ID:", editedProfile._id);
+        console.log(editedProfile);
         updateDonorProfile(editedProfile._id, updatedProfile);
     };
+
+    // debugging
+    useEffect(() => {
+        console.log("Donor Details Updated:", donorDetails);
+        console.log("Edited Profile Updated:", editedProfile);
+      }, [donorDetails, editedProfile]);
+      
 
     const recordLocation = () => {        
         if (navigator.geolocation) {
@@ -170,7 +191,7 @@ const DonorProfile = () => {
                                     <div className="row">
                                         <div className="col-12 col-lg-6">
                                         <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">First Name : </label>
+                                                <label htmlFor="D_Fname" className="form-label">First Name : </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
@@ -182,7 +203,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Age : </label>
+                                                <label htmlFor="D_Age" className="form-label">Age : </label>
                                                 <input
                                                     type="numbe"
                                                     className="form-control"
@@ -194,7 +215,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Adhar Number : </label>
+                                                <label htmlFor="D_AdharNo" className="form-label">Adhar Number : </label>
                                                 <input
                                                     type="number"
                                                     className="form-control"
@@ -206,7 +227,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Address : </label>
+                                                <label htmlFor="D_Address" className="form-label">Address : </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
@@ -218,7 +239,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="B_State" className="form-label">State:</label>
+                                                <label htmlFor="D_State" className="form-label">State:</label>
                                                 <select
                                                     className="form-select"
                                                     aria-label="Select State"
@@ -240,7 +261,7 @@ const DonorProfile = () => {
                                         </div>
                                         <div className="col-12 col-lg-6">
                                         <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Last Name : </label>
+                                                <label htmlFor="D_Lname" className="form-label">Last Name : </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
@@ -252,7 +273,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="B_State" className="form-label">Gender :</label>
+                                                <label htmlFor="D_Gender" className="form-label">Gender :</label>
                                                 <select
                                                     className="form-select"
                                                     aria-label="Select Gender"
@@ -269,7 +290,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="B_State" className="form-label">Blood Group :</label>
+                                                <label htmlFor="D_BloodGroup" className="form-label">Blood Group :</label>
                                                 <select
                                                     className="form-select"
                                                     aria-label="Select Gender"
@@ -291,7 +312,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">City : </label>
+                                                <label htmlFor="D_City" className="form-label">City : </label>
                                                 <input
                                                     type="text "
                                                     className="form-control"
@@ -303,7 +324,7 @@ const DonorProfile = () => {
                                             </div>
 
                                             <div className="mb-3">
-                                                <label htmlFor="exampleInputEmail1" className="form-label">Contact : </label>
+                                                <label htmlFor="D_Contact" className="form-label">Contact : </label>
                                                 <input
                                                     type="tel"
                                                     className="form-control"

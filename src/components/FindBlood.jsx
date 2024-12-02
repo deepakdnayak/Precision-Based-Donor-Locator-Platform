@@ -49,7 +49,7 @@ const FindBlood = () => {
         </div>
         <div className="col-md-6">
           <label htmlFor="bloodQuantity" className="form-label fs-4"> Blood Quantity </label>
-          <input type="number" class="form-control" placeholder="Quantity in ml" id="bloodQuantity" aria-label="Quantity in ml  " min="1"/>
+          <input type="number" className="form-control" placeholder="Quantity in ml" id="bloodQuantity" aria-label="Quantity in ml  " min="1"/>
         </div>
 
         <div className="col-md-12 d-flex justify-content-end">

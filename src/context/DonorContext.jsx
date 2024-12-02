@@ -19,6 +19,7 @@ export const DonorProvider = ({ children }) => {
       null
   );
   const [donorDetails, setDonorDetails] = useState({
+    _id: null,
     D_Fname: "",
     D_Lname: "",
     D_Age: 0,

@@ -37,8 +37,7 @@ const createDonor = async(req,res)=> {
             D_State:   "default",
             D_Contact:   0,
             D_LastDonationDate:   new Date("2000-01-01T00:00:00Z"),
-            D_Latitude: null,
-            D_Longitude: null
+            location: { type: "Point", coordinates: [0.0, 0.0] }
         });
 
         const data = {
@@ -101,7 +100,7 @@ const getDonor = async (req,res)=> {
     } 
     catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal server error");
+        res.status(500).send({ message: "Internal server error"});
     }
 }
 
