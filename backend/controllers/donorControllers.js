@@ -17,7 +17,7 @@ const createDonor = async(req,res)=> {
         
         let donor = await Donor.findOne({D_Email: req.body.D_Email})
         if(donor){
-            return res.status(400).json({ success: false, error: "User Exists"})
+            return res.status(409).json({ success: false, error: "User Exists"})
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -50,7 +50,7 @@ const createDonor = async(req,res)=> {
     } 
     catch (error) {
         console.log(error.message);
-        res.json(505).send("Internal Server Error");
+        res.json(500).send("Internal Server Error");
     }
 }
 
@@ -85,7 +85,7 @@ const loginDonor = async (req,res)=> {
     } 
     catch (error) {
         console.log(error.message);
-        res.json(505).send("Internal Server Error");
+        res.json(500).send("Internal Server Error");
     }
 }
 
@@ -93,6 +93,7 @@ const getDonor = async (req,res)=> {
     try {
         
         let DonorId = req.user.id;
+        console.log(req.user.id);
         const user = await Donor.findById(DonorId).select("-D_Password")
         if(user) res.send(user)
         else res.json({success: false})

@@ -116,7 +116,7 @@ export const BloodBankProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authToken: token,
+          "authToken": token,
         },
       });
       const profile = await response.json();
