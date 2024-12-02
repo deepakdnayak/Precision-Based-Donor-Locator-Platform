@@ -61,11 +61,7 @@ export const BloodBankProvider = ({ children }) => {
 
       const json = await response.json();
 
-      if (json.success) {
-        saveAuthToken(json.authToken);
-        setTimeout(() => {
-          getBloodBankProfileDetails();
-        }, 5000);
+      if (json.success) {  
         return { success: true };
       } else {
         return { success: false, message: json.message };

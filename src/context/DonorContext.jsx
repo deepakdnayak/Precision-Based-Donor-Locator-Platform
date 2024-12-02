@@ -62,10 +62,6 @@ export const DonorProvider = ({ children }) => {
       const json = await responce.json();
 
       if (json.success) {
-        saveAuthToken(json.authToken);
-        setTimeout(() => {
-          getDonorProfileDetails();
-        }, 5000);
         return { success: true };
       } else {
         return { success: false, message: json.message };

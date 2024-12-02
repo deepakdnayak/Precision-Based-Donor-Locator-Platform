@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'sonner'
 
 const NBRegister = () => {
-    const { registerBloodBank, bloodBankAuthToken } = useBloodBank();
+    const { registerBloodBank, bloodBankAuthToken, logoutBB } = useBloodBank();
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({ B_Email: '', B_Password: '', B_Password_C: '' })
@@ -27,7 +27,12 @@ const NBRegister = () => {
         });
 
         if (!result.success) {
-            toast.error('Login Failed!! Please try with correct credentials.')
+            toast.error('Login Failed!! Please try with correct credentials.');
+        }
+        else {
+            logoutBB();
+            localStorage.setItem('signInSuccess', 'true');
+            navigate("/");
         }
     }
 

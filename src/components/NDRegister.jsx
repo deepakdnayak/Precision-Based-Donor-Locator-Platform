@@ -5,7 +5,7 @@ import { Toaster, toast } from 'sonner'
 import { Link } from 'react-router-dom'
 
 const NDRegister = () => {
-    const { registerDonor, donorAuthToken } = useDonor();
+    const { registerDonor, donorAuthToken, logoutD } = useDonor();
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({ D_Email: "", D_Password: "", D_Password_C: "" });
@@ -29,6 +29,11 @@ const NDRegister = () => {
 
         if (!result.success) {
             toast.error("Registration failed");
+        }
+        else {
+            logoutD();
+            localStorage.setItem('signInSuccess', 'true');
+            navigate("/");
         }
     }
 
