@@ -157,19 +157,47 @@ export const BloodBankProvider = ({ children }) => {
 
   const searchMatchDonor = async (bloodGroup) => {
     try {
-      const response = await fetch(`${host}/api/searchBlood/searchDonorMatch`, {
+      // Get user's current location
+      const location = await new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              if (position.coords.latitude && position.coords.longitude) {
+                const { latitude, longitude } = position.coords;
+                resolve({ latitude, longitude });
+              } else {
+                reject("Invalid geolocation data received.");
+              }
+            },
+            (error) => {
+              reject("Error fetching location: " + error.message);
+            }
+          );
+        } else {
+          reject("Geolocation is not supported by your browser.");
+        }
+      });
+  
+      // Make API call with the new endpoint
+      const response = await fetch(`${host}/api/searchBlood/findTheNearestDonors`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ D_BloodGroup: bloodGroup }),
+        body: JSON.stringify({
+          bloodGroup,
+          userLatitude: location.latitude,
+          userLongitude: location.longitude,
+        }),
       });
+  
       const result = await response.json();
       return result.donors;
     } catch (error) {
       console.error("Failed to fetch matching donor details", error);
     }
   };
+  
 
   const searchBloodBanks = async (bloodGroup, quantity) => {
     try {
