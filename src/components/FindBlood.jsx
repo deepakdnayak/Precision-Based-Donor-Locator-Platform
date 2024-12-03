@@ -10,7 +10,6 @@ const FindBlood = () => {
 
   const handleSearch = async () => {
     const bloodGroup = document.getElementById('userSelection').value;
-    const bloodQuantity = document.getElementById('bloodQuantity').innerHTML;
 
 
     const matchD = await searchMatchDonor(bloodGroup);
@@ -19,10 +18,6 @@ const FindBlood = () => {
     const matchBB = await searchBloodBanks(bloodGroup,1);
     setMatchingBloodBank(matchBB);
   };
-
-  // useEffect(() => {
-  //   console.log('Matching donors:', matchingDonors);
-  // }, [matchingDonors]); 
 
   return (
     <div className="container" style={{ marginTop: "80px" }}>
@@ -33,7 +28,7 @@ const FindBlood = () => {
 
       <form className="row g-3 mt-3">
 
-        <div className="col-md-6">
+        <div className="col-md-12">
           <label htmlFor="userSelection" className="form-label fs-4"> Blood Group </label>
           <select className="form-select" aria-label="Default select example" id="userSelection" required>
             <option>Select Blood Group</option>
@@ -46,10 +41,6 @@ const FindBlood = () => {
             <option value="ABplus">AB+</option>
             <option value="ABmin">AB-</option>
           </select>
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="bloodQuantity" className="form-label fs-4"> Blood Quantity </label>
-          <input type="number" className="form-control" placeholder="Quantity in ml" id="bloodQuantity" aria-label="Quantity in ml  " min="1"/>
         </div>
 
         <div className="col-md-12 d-flex justify-content-end">

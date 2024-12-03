@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDonor } from "../context/DonorContext";
+import User from '../images/user.png'
+import Male from '../images/Male.png'
+import Female from '../images/female.jpg'
+import { Toaster, toast } from 'sonner'
 
 const DonorProfile = () => {
+
+    const buttonRef = useRef(null);
 
     const { donorDetails, updateDonorProfile } = useDonor();
     const [editedProfile, setEditedProfile] = useState({
@@ -17,8 +23,6 @@ const DonorProfile = () => {
         D_City: "",
         D_State: "",
         D_Contact: "",
-        D_Latitude: null,
-        D_Longitude: null,
         ...donorDetails, // Overwrite with actual details if available
     });
     const [coordinates, setCoordinates] = useState({
@@ -36,11 +40,46 @@ const DonorProfile = () => {
         }
     }, [coordinates]);  
 
+    const checkProfileStatus = () => {
+        if (!donorDetails) {
+            console.warn("donorDetails is not yet available.");
+            return 0; // Return 0 if donorDetails is not loaded
+        }
+        const totalFields = 10; // Total number of fields to check
+        let incompleteFields = 0;
+    
+        if (donorDetails.D_Fname === "default") incompleteFields++;
+        if (donorDetails.D_Lname === "default") incompleteFields++;
+        if (donorDetails.D_AdharNo === 0) incompleteFields++;
+        if (donorDetails.D_Age === 0) incompleteFields++;
+        if (donorDetails.D_BloodGroup === "default") incompleteFields++;
+        if (donorDetails.D_Address === "default") incompleteFields++;
+        if (donorDetails.D_City === "default") incompleteFields++;
+        if (donorDetails.D_State === "default") incompleteFields++;
+        if (donorDetails.D_Contact === 0) incompleteFields++;
+        if (donorDetails.D_Gender === "default") incompleteFields++;
+    
+        // Calculate the completion percentage
+        return (incompleteFields / totalFields) * 100;
+    };
+
+    const simulateClick = () => {
+        if (buttonRef.current) {
+            buttonRef.current.click(); // Simulate the click
+        }
+    };
+
     useEffect(() => {
         setEditedProfile((prev) => ({
           ...prev,
           ...donorDetails, // Overwrite with the latest donorDetails
         }));
+
+        if (checkProfileStatus() > 40) { // Show warning if profile completion is below 60%
+            toast.warning("Please update your profile.");
+            simulateClick();
+        }
+
       }, [donorDetails]);      
 
     useEffect(() => {
@@ -49,7 +88,6 @@ const DonorProfile = () => {
                 latitude: donorDetails.location.coordinates[1] || null,
                 longitude: donorDetails.location.coordinates[0] || null
             });
-            console.log(donorDetails.location.coordinates[1] || null);
         } else {
             console.warn("Location or coordinates are missing in donorDetails.");
         }
@@ -72,18 +110,9 @@ const DonorProfile = () => {
             D_Latitude: coordinates.latitude, 
             D_Longitude: coordinates.longitude 
         };
-        console.log("Profile ID:", editedProfile._id);
-        console.log(editedProfile);
         updateDonorProfile(editedProfile._id, updatedProfile);
     };
-
-    // debugging
-    useEffect(() => {
-        console.log("Donor Details Updated:", donorDetails);
-        console.log("Edited Profile Updated:", editedProfile);
-      }, [donorDetails, editedProfile]);
       
-
     const recordLocation = () => {        
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -200,7 +229,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_Fname==="default"?"":(editedProfile.D_Fname || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter First Name
                                                 </div>
                                             </div>
@@ -215,7 +244,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_Age===0?"":(editedProfile.D_Age || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter Age
                                                 </div>
                                             </div>
@@ -230,7 +259,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_AdharNo===0?"":(editedProfile.D_AdharNo || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter Adhar Number
                                                 </div>
                                             </div>
@@ -245,7 +274,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_Address==="default"?"":(editedProfile.D_Address || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter Address
                                                 </div>
                                             </div>
@@ -282,7 +311,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_Lname==="default"?"":(editedProfile.D_Lname || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter Last Name
                                                 </div>
                                             </div>
@@ -302,7 +331,7 @@ const DonorProfile = () => {
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option>
                                                 </select>
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Select Gender
                                                 </div>
                                             </div>
@@ -327,7 +356,7 @@ const DonorProfile = () => {
                                                 <option value="ABplus">AB+</option>
                                                 <option value="ABminus">AB-</option>
                                                 </select>
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Select Blood Group
                                                 </div>
                                             </div>
@@ -342,7 +371,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_City==="default"?"":(editedProfile.D_City || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter City
                                                 </div>
                                             </div>
@@ -357,7 +386,7 @@ const DonorProfile = () => {
                                                     onChange={onChange}
                                                     value={editedProfile.D_Contact===0?"":(editedProfile.D_Contact || '')}
                                                 />
-                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                                    Enter Contact
                                                 </div>
                                             </div>
@@ -409,11 +438,11 @@ const DonorProfile = () => {
                             <div className="card-body text-center">
                             <img
                                     
-                                    src={donorDetails.D_Gender=="Male"?'https://bootdey.com/img/Content/avatar/avatar7.png':'https://static.vecteezy.com/system/resources/previews/004/899/680/non_2x/beautiful-blonde-woman-with-makeup-avatar-for-a-beauty-salon-illustration-in-the-cartoon-style-vector.jpg'}
+                                    src={donorDetails.D_Gender==="default"?User:(donorDetails.D_Gender=="Male"?Male:Female)}
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle mb-3 mt-4"
                                 />
-                                <h5 className="card-title mt-3"><span> {donorDetails.D_Fname} </span><span> {donorDetails.D_Lname} </span></h5>
+                                <h5 className="card-title mt-3"><span> {donorDetails.D_Fname==="default"?"Please Update Profile":donorDetails.D_Fname} </span><span> {donorDetails.D_Lname==="default"?"":donorDetails.D_Lname} </span></h5>
                             
                             </div>
                         </div>
@@ -421,29 +450,29 @@ const DonorProfile = () => {
                     <div className="col-md-8 d-flex align-items-stretch">
                         <div className="card w-100">
                             <ul className="list-group list-group-flush">
+                                <li className="list-group-item py-3">
+                                    <strong>Email : </strong><span>{donorDetails.D_Email}</span>
+                                </li>
                             <li className="list-group-item py-3">
                                     <div className="row">
-                                        <div className="col"><strong>Age : </strong><span>{donorDetails.D_Age}</span></div>
-                                        <div className="col"><strong>Gender : </strong><span>{donorDetails.D_Gender}</span></div>
+                                        <div className="col"><strong>Age : </strong><span>{donorDetails.D_Age===0?"Please Update Profile":donorDetails.D_Age}</span></div>
+                                        <div className="col"><strong>Gender : </strong><span>{donorDetails.D_Gender==="default"?"Please Update Profile":donorDetails.D_Gender}</span></div>
                                     </div>
                                 </li>
                                 <li className="list-group-item py-3">
                                     <div className="row">
-                                        <div className="col"><strong>Blood Group: </strong><span>{formatBloodGroup(donorDetails.D_BloodGroup)}</span></div>
+                                        <div className="col"><strong>Blood Group: </strong><span>{donorDetails.D_BloodGroup==="default"?"Please Update Profile":formatBloodGroup(donorDetails.D_BloodGroup)}</span></div>
                                         {/* <div className="col"><strong>Last Donation Date : </strong><span>{donorDetails.D_LastDonationDate}</span></div> */}
                                     </div>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Email : </strong><span>{donorDetails.D_Email}</span>
+                                    <strong>Adhar Number : </strong><span>{donorDetails.D_AdharNo===0?"Please Update Profile":donorDetails.D_AdharNo}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Adhar Number : </strong><span>{donorDetails.D_AdharNo}</span>
+                                    <strong>Address : </strong><span> {donorDetails.D_Address==="default" || donorDetails.D_City==="default" || donorDetails.D_State==="default"?"Please Update Profile":`${donorDetails.D_Address}, ${donorDetails.D_City}, ${donorDetails.D_State}`}</span>
                                 </li>
                                 <li className="list-group-item py-3">
-                                    <strong>Address : </strong><span> {`${donorDetails.D_Address}, ${donorDetails.D_City}, ${donorDetails.D_State}`}</span>
-                                </li>
-                                <li className="list-group-item py-3">
-                                    <strong>Contact : </strong><span>{donorDetails.D_Contact}</span>
+                                    <strong>Contact : </strong><span>{donorDetails.D_Contact===0?"Please Update Profile":donorDetails.D_Contact}</span>
                                 </li>
                                 <li className="list-group-item py-3">
                                     <strong>Location : </strong><span>{location || "Not Saved Yet"}</span>
@@ -453,7 +482,7 @@ const DonorProfile = () => {
                                 <div className="row">
                                     <div className="col-lg-4 col-md-12 mb-2 px-0 px-md-4">
                                         <button
-                                            type="button" className="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>
+                                            type="button" className="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ref={buttonRef}>Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -461,6 +490,7 @@ const DonorProfile = () => {
                     </div>
                 </div>
             </div>
+            <Toaster position="top-center" expand={false} richColors   />
         </div>
     )
 }
