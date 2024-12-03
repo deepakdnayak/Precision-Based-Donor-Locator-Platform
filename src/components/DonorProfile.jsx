@@ -194,48 +194,60 @@ const DonorProfile = () => {
                                                 <label htmlFor="D_Fname" className="form-label">First Name : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_Fname==="default" || editedProfile.D_Fname==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_Fname"
                                                     name="D_Fname"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Fname || ''}
+                                                    value={editedProfile.D_Fname==="default"?"":(editedProfile.D_Fname || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter First Name
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <label htmlFor="D_Age" className="form-label">Age : </label>
                                                 <input
                                                     type="numbe"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_Age===0 || editedProfile.D_Age==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_Age"
                                                     name="D_Age"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Age || ''}
+                                                    value={editedProfile.D_Age===0?"":(editedProfile.D_Age || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Age
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <label htmlFor="D_AdharNo" className="form-label">Adhar Number : </label>
                                                 <input
                                                     type="number"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_AdharNo===0 || editedProfile.D_AdharNo==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_AdharNo"
                                                     name="D_AdharNo"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_AdharNo || ''}
+                                                    value={editedProfile.D_AdharNo===0?"":(editedProfile.D_AdharNo || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Adhar Number
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <label htmlFor="D_Address" className="form-label">Address : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_Address==="default" || editedProfile.D_Address==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_Address"
                                                     name="D_Address"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Address || ''}
+                                                    value={editedProfile.D_Address==="default"?"":(editedProfile.D_Address || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Address
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
@@ -264,12 +276,15 @@ const DonorProfile = () => {
                                                 <label htmlFor="D_Lname" className="form-label">Last Name : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_Lname==="default" || editedProfile.D_Lname==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_Lname"
                                                     name="D_Lname"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Lname || ''}
+                                                    value={editedProfile.D_Lname==="default"?"":(editedProfile.D_Lname || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Last Name
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
