@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDonor } from "../context/DonorContext";
+import User from '../images/user.jpg'
+import Male from '../images/Male.png'
+import Female from '../images/female.jpg'
 
 const DonorProfile = () => {
 
@@ -409,7 +412,7 @@ const DonorProfile = () => {
                             <div className="card-body text-center">
                             <img
                                     
-                                    src={donorDetails.D_Gender=="Male"?'https://bootdey.com/img/Content/avatar/avatar7.png':'https://static.vecteezy.com/system/resources/previews/004/899/680/non_2x/beautiful-blonde-woman-with-makeup-avatar-for-a-beauty-salon-illustration-in-the-cartoon-style-vector.jpg'}
+                                    src={donorDetails.D_Gender==="default"?User:(donorDetails.D_Gender=="Male"?Male:Female)}
                                     alt="User Avatar"
                                     className="img-fluid rounded-circle mb-3 mt-4"
                                 />

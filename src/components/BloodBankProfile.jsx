@@ -78,13 +78,16 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_Name" className="form-label">Name : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_Name==="default" || editedProfile.B_Name==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_Name"
                                                     name="B_Name"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_Name || ''}
+                                                    value={editedProfile.B_Name==="default"?"":(editedProfile.B_Name || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Name
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="col-12 col-lg-6">
@@ -93,13 +96,16 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_LiscenceNo" className="form-label">Licence Number : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_LiscenceNo===0 || editedProfile.B_LiscenceNo==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_LiscenceNo"
                                                     name="B_LiscenceNo"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_LiscenceNo || ''}
+                                                    value={editedProfile.B_LiscenceNo===0?"":(editedProfile.B_LiscenceNo || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Licence Number
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -110,13 +116,16 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_Address" className="form-label">Address : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_Address==="default" || editedProfile.B_Address==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_Address"
                                                     name="B_Address"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_Address || ''}
+                                                    value={editedProfile.B_Address==="default"?"":(editedProfile.B_Address || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Address
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="col-12 col-lg-6">
@@ -124,35 +133,43 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_City" className="form-label">City : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_City==="default" || editedProfile.B_City==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_City"
                                                     name="B_City"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_City || ''}
+                                                    value={editedProfile.B_City==="default"?"":(editedProfile.B_City || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter City
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="row">
-                                        <div className="mb-3">
-                                                <label htmlFor="B_State" className="form-label">State:</label>
-                                                <select
-                                                    className="form-select"
-                                                    aria-label="Select State"
-                                                    id="B_State"
-                                                    name="B_State"
-                                                    onChange={onChange}
-                                                    value={editedProfile.B_State || ''}
-                                                >
-                                                    <option value="" disabled>Select a State</option>
-                                                    {states.map(state => (
-                                                        <option key={state.id} value={state.name}>
-                                                            {state.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                        <div className="col-12 col-lg-6">
+                                            <div className="mb-3">
+                                                    <label htmlFor="B_State" className="form-label">State:</label>
+                                                    <select
+                                                        className={`form-select ${editedProfile.B_State==="default"?"is-invalid":"is-valid"}`}
+                                                        aria-label="Select State"
+                                                        id="B_State"
+                                                        name="B_State"
+                                                        onChange={onChange}
+                                                        value={editedProfile.B_State==="default"?"":(editedProfile.B_State || '')}
+                                                    >
+                                                        <option value="" disabled>Select a State</option>
+                                                        {states.map(state => (
+                                                            <option key={state.id} value={state.name}>
+                                                                {state.name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                        Select State
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         <div className="col-12 col-lg-6">
@@ -160,13 +177,16 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_Contact" className="form-label">Contact : </label>
                                                 <input
                                                     type="tel"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_Contact===0 || editedProfile.B_Contact==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_Contact"
                                                     name="B_Contact"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_Contact || ''}
+                                                    value={editedProfile.B_Contact===0?"":(editedProfile.B_Contact   || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Contact No.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,13 +197,16 @@ const BloodBankProfile = () => {
                                                 <label htmlFor="B_InventoryAPI" className="form-label">API : </label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.B_InventoryAPI==="default" || editedProfile.B_InventoryAPI==="" ?"is-invalid":"is-valid"}`}
                                                     id="B_InventoryAPI"
                                                     name="B_InventoryAPI"
                                                     onChange={onChange}
-                                                    value={editedProfile.B_InventoryAPI || ''}
+                                                    value={editedProfile.B_InventoryAPI==="default"?"":(editedProfile.B_InventoryAPI || '')}
                                                     aria-describedby="emailHelp"
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Connetction API
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
