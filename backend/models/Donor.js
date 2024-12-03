@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const DonorSchema = new Schema({
@@ -54,12 +54,20 @@ const DonorSchema = new Schema({
         type: Date,
         required: true
     },
-    D_Latitude: {
-        type: Number
-    },
-    D_Longitude: {
-        type: Number
+    location: {
+        type: {
+            type: String, // This should always be "Point"
+            enum: ["Point"], // Enforce GeoJSON "Point" type
+            required: true
+        },
+        coordinates: {
+            type: [Number], // Array of numbers: [longitude, latitude]
+            required: true
+        }
     }
-})
+});
 
-module.exports = mongoose.model("Donor", DonorSchema)
+// Create a 2dsphere index on the location field for geospatial queries
+DonorSchema.index({ location: "2dsphere" });
+
+module.exports = mongoose.model("Donor", DonorSchema);

@@ -19,6 +19,7 @@ export const DonorProvider = ({ children }) => {
       null
   );
   const [donorDetails, setDonorDetails] = useState({
+    _id: null,
     D_Fname: "",
     D_Lname: "",
     D_Age: 0,
@@ -31,6 +32,7 @@ export const DonorProvider = ({ children }) => {
     D_City: "",
     D_State: "",
     D_Contact: "",
+    location: { coordinates: [null, null] }
   });
 
   useEffect(() => {
@@ -60,10 +62,6 @@ export const DonorProvider = ({ children }) => {
       const json = await responce.json();
 
       if (json.success) {
-        saveAuthToken(json.authToken);
-        setTimeout(() => {
-          getDonorProfileDetails();
-        }, 5000);
         return { success: true };
       } else {
         return { success: false, message: json.message };
@@ -111,11 +109,12 @@ export const DonorProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "Application/json",
-          authToken: token,
+          "authToken": token,
         },
       });
       const profile = await responce.json();
       setDonorDetails(profile);
+      console.log(profile);
     } catch (error) {
       console.error("Failed to fetch donor details", error);
     }

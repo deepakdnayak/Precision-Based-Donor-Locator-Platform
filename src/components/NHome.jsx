@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DonateBloodVideo from "../videos/donate_blood.mp4";
 import Group from '../images/group.png'
 import Mission from '../images/mission.png'
 import Goal from '../images/goal.png'
 import AutoNumberTicker from "./AutoNumberTicker";
 import { Link } from "react-router-dom";
+import { Toaster, toast } from 'sonner'
 
 const NHome = () => {
+
+  useEffect(() => {
+    // Check if signInSuccess flag exists in localStorage
+    if (localStorage.getItem('signInSuccess') === 'true') {
+        toast.success("Registration successful!");
+        toast.success("Please Login to access profile");
+        localStorage.removeItem('signInSuccess'); // Remove the flag after showing the toast
+    }
+  }, []);
+
   return (
     <div className="block" style={{ marginTop: "150px" }}>
       <div className="container-fluid p-5" style={{ backgroundColor: "#fff" }}>
@@ -225,6 +236,7 @@ const NHome = () => {
         </div>
       </div>
     </footer>
+    <Toaster position="top-center" expand={false} richColors   />
     </div>
   );
 };

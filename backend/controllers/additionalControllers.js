@@ -97,4 +97,51 @@ const updateInventory = async (req, res) => {
     }
 }
 
-module.exports = { searchDonor , searchBloodBanks, updateInventory };
+const findNearestDonors = async (req, res) => {
+    const { bloodGroup, userLatitude, userLongitude } = req.body;
+
+    try {
+        // Validate inputs
+        if (!bloodGroup || !userLatitude || !userLongitude) {
+            return res.status(400).json({ success: false, error: "Missing required body parameters." });
+        }
+
+        // Parse latitude and longitude
+        const latitude = parseFloat(userLatitude);
+        const longitude = parseFloat(userLongitude);
+
+        if (isNaN(latitude) || isNaN(longitude)) {
+            return res.status(400).json({ success: false, error: "Invalid latitude or longitude." });
+        }
+
+        // Define max distance (in meters) and eligibility criteria
+        const maxDistance = 50000; // 50 km
+        const donationEligibilityDate = new Date();
+        donationEligibilityDate.setMonth(donationEligibilityDate.getMonth() - 3); // Example: donors who donated at least 3 months ago
+
+        // Find eligible donors
+        const donors = await Donor.find({
+            D_BloodGroup: bloodGroup, // Match blood group
+            "location": {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [longitude, latitude] // Longitude first, then latitude
+                    },
+                    $maxDistance: maxDistance
+                }
+            },
+            D_LastDonationDate: { $lte: donationEligibilityDate } // Check last donation date
+        })
+            .limit(10) // Limit to 10 results
+            .select("-D_Password"); // Exclude sensitive fields like password
+
+        // Return donors to frontend
+        return res.json({ success: true, donors });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+};
+
+module.exports = { searchDonor , searchBloodBanks, updateInventory, findNearestDonors };
