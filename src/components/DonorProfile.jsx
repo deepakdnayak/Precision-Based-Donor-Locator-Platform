@@ -253,12 +253,12 @@ const DonorProfile = () => {
                                             <div className="mb-3">
                                                 <label htmlFor="D_State" className="form-label">State:</label>
                                                 <select
-                                                    className="form-select"
+                                                    className={`form-select ${editedProfile.D_State==="default"?"is-invalid":"is-valid"}`}
                                                     aria-label="Select State"
                                                     id="D_State"
                                                     name="D_State"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_State || ''}
+                                                    value={editedProfile.D_State==="default"?"":(editedProfile.D_State || '')}
                                                 >
                                                     <option value="" disabled>Select a State</option>
                                                     {states.map(state => (
@@ -290,29 +290,32 @@ const DonorProfile = () => {
                                             <div className="mb-3">
                                                 <label htmlFor="D_Gender" className="form-label">Gender :</label>
                                                 <select
-                                                    className="form-select"
+                                                    className={`form-select ${editedProfile.D_Gender==="default"?"is-invalid":"is-valid"}`}
                                                     aria-label="Select Gender"
                                                     id="D_Gender"
                                                     name="D_Gender"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Gender || ''}
+                                                    value={editedProfile.D_Gender==="default"?"":(editedProfile.D_Gender || '')}
                                                 > 
                                                 <option value="" disabled>Select Gender </option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option>
                                                 </select>
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Select Gender
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <label htmlFor="D_BloodGroup" className="form-label">Blood Group :</label>
                                                 <select
-                                                    className="form-select"
+                                                    className={`form-select ${editedProfile.D_BloodGroup==="default"?"is-invalid":"is-valid"}`}
                                                     aria-label="Select Gender"
                                                     id="D_BloodGroup"
                                                     name="D_BloodGroup"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_BloodGroup || ''}
+                                                    value={editedProfile.D_BloodGroup==="default"?"":(editedProfile.D_Gender || '')}
                                                 > 
                                                 <option value="" disabled>Select Blood Group </option>
                                                 <option value="Aplus">A+</option>
@@ -324,6 +327,9 @@ const DonorProfile = () => {
                                                 <option value="ABplus">AB+</option>
                                                 <option value="ABminus">AB-</option>
                                                 </select>
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Select Blood Group
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
