@@ -330,24 +330,30 @@ const DonorProfile = () => {
                                                 <label htmlFor="D_City" className="form-label">City : </label>
                                                 <input
                                                     type="text "
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_City==="default" || editedProfile.D_City==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_City"
                                                     name="D_City"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_City || ''}
+                                                    value={editedProfile.D_City==="default"?"":(editedProfile.D_City || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter City
+                                                </div>
                                             </div>
 
                                             <div className="mb-3">
                                                 <label htmlFor="D_Contact" className="form-label">Contact : </label>
                                                 <input
                                                     type="tel"
-                                                    className="form-control"
+                                                    className={`form-control ${editedProfile.D_Contact===0 || editedProfile.D_Contact==="" ?"is-invalid":"is-valid"}`}
                                                     id="D_Contact"
                                                     name="D_Contact"
                                                     onChange={onChange}
-                                                    value={editedProfile.D_Contact || ''}
+                                                    value={editedProfile.D_Contact===0?"":(editedProfile.D_Contact || '')}
                                                 />
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                   Enter Contact
+                                                </div>
                                             </div>
                                             
                                             
