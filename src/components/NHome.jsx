@@ -236,7 +236,7 @@ const NHome = () => {
         </div>
       </div>
     </footer>
-    <Toaster position="top-center" expand={false} richColors   />
+    <Toaster position="top-center" expand={true} richColors   />
     </div>
   );
 };

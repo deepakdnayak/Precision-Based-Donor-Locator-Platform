@@ -114,7 +114,6 @@ export const DonorProvider = ({ children }) => {
       });
       const profile = await responce.json();
       setDonorDetails(profile);
-      console.log(profile);
     } catch (error) {
       console.error("Failed to fetch donor details", error);
     }

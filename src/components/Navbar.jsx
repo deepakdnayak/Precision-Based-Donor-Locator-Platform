@@ -81,11 +81,6 @@ const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/services">
-                Services
-              </Link>
-            </li>
-            <li className="nav-item">
               <a href="/#appfooter" className="nav-link" >
                 Contact
               </a>

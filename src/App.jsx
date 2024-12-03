@@ -15,7 +15,7 @@ import Test from './components/Test';
 const App = ()=> {
   return (
     <>
-      <Router future={{ v7_startTransition: true }}>
+      <Router future={{ v7_relativeSplatPath: true }}>
         <Navbar/>
         <Routes>
           <Route exact path="/" element={<NHome/>}/>
