@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import LocationPicker from "./LocationPicker";
 
-const Test = () => {
+function Test() {
   return (
-    <div>Test</div>
-  )
+    <div>
+      <h1>Location Selector App</h1>
+      <LocationPicker />
+    </div>
+  );
 }
 
-export default Test
+export default Test;
