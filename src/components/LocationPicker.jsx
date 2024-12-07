@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -11,14 +11,38 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-const LocationPicker = () => {
+const LocationPicker = ({ onLocationSelected }) => {
   const [selectedPosition, setSelectedPosition] = useState(null);
+  const [currentCoordinates, setCurrentCoordinates] = useState({
+    latitude: null,
+    longitude: null,
+  });
 
-  // Component to capture map clicks and update marker position
+  const recordLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCurrentCoordinates({ latitude, longitude });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  };
+
+  useEffect(() => {
+    recordLocation();
+  }, []);
+
   const LocationMarker = () => {
     useMapEvents({
       click(e) {
-        setSelectedPosition(e.latlng); // Save the clicked coordinates
+        setSelectedPosition(e.latlng);
+        onLocationSelected(e.latlng); // Pass the coordinates back to the parent
       },
     });
 
@@ -30,17 +54,21 @@ const LocationPicker = () => {
   return (
     <div>
       <h2>Pick a Location on the Map</h2>
-      <MapContainer
-        center={[12.868640, 74.842635]} // Default map center (London)
-        zoom={13}
-        style={{ height: "500px", width: "50%" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <LocationMarker />
-      </MapContainer>
+      {currentCoordinates.latitude && currentCoordinates.longitude ? (
+        <MapContainer
+          center={[currentCoordinates.latitude, currentCoordinates.longitude]}
+          zoom={13}
+          style={{ height: "500px", width: "50%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <LocationMarker />
+        </MapContainer>
+      ) : (
+        <p>Loading map...</p>
+      )}
 
       {selectedPosition && (
         <p>

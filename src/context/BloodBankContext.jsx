@@ -151,48 +151,63 @@ export const BloodBankProvider = ({ children }) => {
     }
   };
 
-  const searchMatchDonor = async (bloodGroup) => {
+  const searchMatchDonor = async (bloodGroup, manualCoordinates = null) => {
     try {
-      // Get user's current location
-      const location = await new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              if (position.coords.latitude && position.coords.longitude) {
-                const { latitude, longitude } = position.coords;
-                resolve({ latitude, longitude });
-              } else {
-                reject("Invalid geolocation data received.");
-              }
-            },
-            (error) => {
-              reject("Error fetching location: " + error.message);
-            }
-          );
-        } else {
-          reject("Geolocation is not supported by your browser.");
-        }
-      });
+      let location;
   
-      // Make API call with the new endpoint
-      const response = await fetch(`${host}/api/searchBlood/findTheNearestDonors`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          bloodGroup,
-          userLatitude: location.latitude,
-          userLongitude: location.longitude,
-        }),
-      });
+      if (manualCoordinates) {
+        // Use manually provided coordinates
+        location = {
+          latitude: manualCoordinates.lat,
+          longitude: manualCoordinates.lng,
+        };
+      } else {
+        // Get user's current location
+        location = await new Promise((resolve, reject) => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                if (position.coords.latitude && position.coords.longitude) {
+                  const { latitude, longitude } = position.coords;
+                  resolve({ latitude, longitude });
+                } else {
+                  reject("Invalid geolocation data received.");
+                }
+              },
+              (error) => {
+                reject("Error fetching location: " + error.message);
+              }
+            );
+          } else {
+            reject("Geolocation is not supported by your browser.");
+          }
+        });
+      }
+  
+      // Make API call with the selected coordinates
+      const response = await fetch(
+        `${host}/api/searchBlood/findTheNearestDonors`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            bloodGroup,
+            userLatitude: location.latitude,
+            userLongitude: location.longitude,
+          }),
+        }
+      );
   
       const result = await response.json();
       return result.donors;
     } catch (error) {
       console.error("Failed to fetch matching donor details", error);
+      return [];
     }
   };
+  
   
 
   const searchBloodBanks = async (bloodGroup, quantity) => {
