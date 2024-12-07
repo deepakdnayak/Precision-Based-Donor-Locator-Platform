@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FindBloodItem from "./FindBloodItem";
 import { useBloodBank } from "../context/BloodBankContext";
 import LocationPicker from "./LocationPicker";
+import { Toaster, toast } from 'sonner'
 
 const FindBlood = () => {
   const { searchMatchDonor, searchBloodBanks } = useBloodBank();
@@ -12,6 +13,12 @@ const FindBlood = () => {
 
   const handleSearch = async () => {
     const bloodGroup = document.getElementById("userSelection").value;
+    console.log("bloodGroup : "+bloodGroup);
+    if(bloodGroup=="Select Blood Group"){
+      toast.error("Please select valid blood type.")
+      
+    }
+    
 
     const matchD = await searchMatchDonor(bloodGroup, manualCoordinates);
     setMatchingDonors(matchD);
@@ -57,7 +64,34 @@ const FindBlood = () => {
           </select>
         </div>
 
-        <div className="col-md-12 d-flex justify-content-end">
+        <div className="col-md-12 d-flex justify-content-between align-items-start">
+          <button
+            onClick={handleSelectLocationManually}
+            type="button"
+            className="btn btn-secondary fs-5"
+          >
+            Select Location Manually
+          </button>
+        </div>
+      </form>
+
+      {showMap && (
+        <div className="mt-4">
+          <LocationPicker onLocationSelected={handleLocationSelected} />
+          <div className="d-flex justify-content-end mt-2">
+            <button
+              onClick={handleSearch}
+              type="button"
+              className="btn btn-danger fs-4"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!showMap && (
+        <div className="d-flex justify-content-end mt-3">
           <button
             onClick={handleSearch}
             type="button"
@@ -65,22 +99,6 @@ const FindBlood = () => {
           >
             Search
           </button>
-        </div>
-      </form>
-
-      <div className="col-md-12 d-flex justify-content-start mt-3">
-        <button
-          onClick={handleSelectLocationManually}
-          type="button"
-          className="btn btn-secondary fs-5"
-        >
-          Select Location Manually
-        </button>
-      </div>
-
-      {showMap && (
-        <div className="mt-4">
-          <LocationPicker onLocationSelected={handleLocationSelected} />
         </div>
       )}
 
@@ -119,6 +137,7 @@ const FindBlood = () => {
           </div>
         ))}
       </div>
+      <Toaster position="bottom-left" expand={false} richColors   />
     </div>
   );
 };

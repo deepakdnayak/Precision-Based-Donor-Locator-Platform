@@ -58,7 +58,12 @@ const LocationPicker = ({ onLocationSelected }) => {
         <MapContainer
           center={[currentCoordinates.latitude, currentCoordinates.longitude]}
           zoom={13}
-          style={{ height: "500px", width: "50%" }}
+          style={{
+            height: "500px",
+            width: window.innerWidth <= 768 ? "90%" : "50%",
+            margin: "0 auto", // Center map on large screens
+            padding: window.innerWidth <= 768 ? "10px" : "0",
+          }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -68,12 +73,6 @@ const LocationPicker = ({ onLocationSelected }) => {
         </MapContainer>
       ) : (
         <p>Loading map...</p>
-      )}
-
-      {selectedPosition && (
-        <p>
-          Selected Coordinates: {selectedPosition.lat}, {selectedPosition.lng}
-        </p>
       )}
     </div>
   );
